@@ -1,7 +1,6 @@
 "use client";
 import { useParams } from "next/navigation";
 import React from "react";
-// import { useRouter } from 'next/router';
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
@@ -139,21 +138,16 @@ const BlogPostPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-blue-900 text-foreground">
-      <main className="w-full mx-auto px-4 py-8 pt-16">
-        {/* <Link href="/">
-          <Button variant="ghost" className="mb-6">
-            <ArrowLeft className="mr-2 h-4 w-4" /> Back to Home
-          </Button>
-        </Link> */}
-        <article className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 max-w-4xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-gray-100 to-blue-200 dark:from-gray-900 dark:to-gray-800 text-foreground">
+      <main className="w-full mx-auto px-4 py-8 pt-16 ">
+        <article className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 max-w-4xl mx-auto pt-[10%]">
           <h1 className="text-4xl font-bold mb-4 text-blue-600 dark:text-blue-300">
             {blogPost.title}
           </h1>
           <div className="text-sm text-gray-600 dark:text-gray-400 mb-6">
             By {blogPost.author} | {blogPost.date}
           </div>
-          <div className="prose dark:prose-invert max-w-none">
+          <div className="prose dark:prose-invert max-w-none ">
             {blogPost.content.map((item, index) => {
               switch (item.type) {
                 case "paragraph":
