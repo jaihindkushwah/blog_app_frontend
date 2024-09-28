@@ -14,7 +14,7 @@ const fontSans = FontSans({
 });
 
 export const metadata: Metadata = {
-  title: "The Founded by the People",
+  title: "The Founded any problems...",
   // the founded is a blog site
   description: "The founded is a blog site",
 };
