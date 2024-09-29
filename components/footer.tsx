@@ -102,7 +102,10 @@ export const Footer = () => {
           </div>
         </div>
         <div className="mt-8 pt-8 border-t border-gray-700 text-center">
-          <p className="text-sm">&copy; 2024 My Blog. All rights reserved.</p>
+          <p className="text-sm">
+            &copy; {new Date().getFullYear()} The Founded.in. All rights
+            reserved.
+          </p>
           <div className="mt-2 space-x-4">
             <Link href="/privacy-policy" passHref>
               <span className="text-sm hover:underline">Privacy Policy</span>
