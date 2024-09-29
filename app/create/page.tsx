@@ -82,17 +82,13 @@ const formats = [
 ];
 
 interface BlogPost {
-  title: string;
   content: string;
 }
-export function TextEditorDrawerDialog({
-  //   onClick,
+function TextEditorDrawerDialog({
   contents,
-}: //   asChild,
-{
+}: {
   onClick?: () => {};
   contents: BlogPost;
-  //   asChild?: React.ElementType;
 }) {
   const [open, setOpen] = React.useState(false);
   //   useEffect(() => {
