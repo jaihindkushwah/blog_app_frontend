@@ -2,6 +2,9 @@ import NextAuth, { NextAuthOptions, DefaultSession } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import axios from "axios";
+import connectToDatabase from "./utils/db";
+import User from "./models/User";
+import { compareEncryption } from "./lib/encryptDecrypt";
 
 // Extend the built-in session types
 declare module "next-auth" {
@@ -50,16 +53,29 @@ export const authOptions: NextAuthOptions = {
           throw new Error("Please enter credentials!");
         }
         try {
-          const response = await axios.post(
-            "http://127.0.0.1:8080/api/v1/auth/login",
-            {
-              email: email,
-              password: password,
-            }
-          );
-          const data = await response.data;
-          console.log(data);
-          return { token: data.token, ...data.user } as any;
+          await connectToDatabase();
+          const user = await User.findOne({ email });
+          if (!user) {
+            throw new Error("User not found!");
+          }
+          const isPasswordCorrect = compareEncryption(password, user.password);
+          if (!isPasswordCorrect) {
+            throw new Error("Password is incorrect!");
+          }
+          const newUser = {
+            id: user._id,
+            name: user.name,
+            email: user.email,
+            // image: user.image,
+            // avatar: user.avatar,
+            // avatarId: user.avatarId,
+            // jti: user.jti,
+            // role: user.role,
+            // token: user.token,
+            // verified: user.verified,
+          };
+          // return { token: data.token, user: newUser } as any;
+          return { user: newUser } as any;
         } catch (error: any) {
           throw new Error(error.response.data.message);
         }
@@ -73,34 +89,34 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async jwt({ token, account, user, session, profile }) {
-      if (account) {
-        token.token = account.access_token;
-      }
-      // console.log("jwt_token", {
-      //   ...token,
-      // });
-      if (account?.provider === "google") {
-        const googleToken = account.id_token;
-        const response = await axios.post(
-          "http://127.0.0.1:8080/api/v1/auth/google",
-          {
-            googleToken: googleToken,
-          }
-        );
-        const data = await response.data;
-        console.log(data);
-        const user1 = { token: data.token, ...data.user };
-        return {
-          ...token,
-          ...user1,
-        };
-      }
-      if (user) {
-        return {
-          ...token,
-          ...user,
-        };
-      }
+      // if (account) {
+      //   token.token = account.access_token;
+      // }
+      // // console.log("jwt_token", {
+      // //   ...token,
+      // // });
+      // if (account?.provider === "google") {
+      //   const googleToken = account.id_token;
+      //   const response = await axios.post(
+      //     "http://127.0.0.1:8080/api/v1/auth/google",
+      //     {
+      //       googleToken: googleToken,
+      //     }
+      //   );
+      //   const data = await response.data;
+      //   console.log(data);
+      //   const user1 = { token: data.token, ...data.user };
+      //   return {
+      //     ...token,
+      //     ...user1,
+      //   };
+      // }
+      // if (user) {
+      //   return {
+      //     ...token,
+      //     ...user,
+      //   };
+      // }
 
       return token;
     },
@@ -140,9 +156,9 @@ export const authOptions: NextAuthOptions = {
     },
   },
   pages: {
-    signIn: "/auth/login",
-    newUser: "/pages/protected/dashboard",
-    signOut: "/auth/login/",
+    signIn: "/login",
+    newUser: "/create",
+    signOut: "/login/",
   },
   secret: process.env.NEXTAUTH_SECRET,
 };

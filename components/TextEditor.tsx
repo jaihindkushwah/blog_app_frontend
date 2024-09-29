@@ -261,16 +261,18 @@ export const RichTextEditorToolBar: React.FC<IRichTextEditorToolBarProps> = ({
 interface IRichTextReader {
   contents: string;
   className?: string;
+  type?: "html" | "json";
 }
 
 export const RichTextReader: React.FC<IRichTextReader> = ({
   contents,
   className,
+  type,
 }) => {
   const editor = useEditor(
     {
       extensions: [...RichTextEditorExtensions],
-      content: JSON.parse(contents || "{}") || "",
+      content: (type = "html" ? contents : JSON.parse(contents || "{}")),
       editable: false,
       immediatelyRender: false,
       editorProps: { ...EditorDefaultProps },
@@ -441,30 +443,5 @@ export function TextEditorDrawerDialog({ editor, onClick }: IDialogProps) {
         </div>
       </DialogContent>
     </Dialog>
-    // );
-    //   }
-
-    //   return (
-    //     <Drawer open={open} onOpenChange={setOpen}>
-    //       <DrawerTrigger asChild>
-    //         <Button variant="outline">Edit Content</Button>
-    //       </DrawerTrigger>
-    //       <DrawerContent>
-    //         <DrawerHeader className="text-left">
-    //           <DrawerTitle>Edit Problem Content</DrawerTitle>
-    //           <DrawerDescription>
-    //             Make changes to your Content here. Click save when you're done.
-    //           </DrawerDescription>
-    //         </DrawerHeader>
-    //         <div className="relative">
-    //           <RichTextEditor editor={editor} />
-    //         </div>
-    //         <DrawerFooter className="pt-2">
-    //           <DrawerClose asChild>
-    //             <Button variant="outline">Cancel</Button>
-    //           </DrawerClose>
-    //         </DrawerFooter>
-    //       </DrawerContent>
-    //     </Drawer>
   );
 }
