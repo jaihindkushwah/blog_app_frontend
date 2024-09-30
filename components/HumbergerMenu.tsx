@@ -10,19 +10,19 @@ export const HamburgerMenuPage = () => {
   return (
     <HamburgerMenu bgColor={`bg-inherit`} textColor="dark:text-white text-dark">
       <Sheet>
-        <span className="flex justify-between items-center">
-          <Image
+        {/* <span className="flex justify-between items-center"> */}
+        {/* <Image
             // src="https://links.papareact.com/a943ae"
             src={"/logo2.jpeg"}
             alt="logo"
             width={1920}
             height={1080}
             className="rounded-sm sm:h-[43px] sm:w-36 h-[36px] w-28 mb-2 z-40"
-          />
-          <SheetTrigger>
-            <span className="text-center text-4xl ">&#8801;</span>
-          </SheetTrigger>
-        </span>
+          /> */}
+        <SheetTrigger>
+          <span className="text-center text-4xl ">&#8801;</span>
+        </SheetTrigger>
+        {/* </span> */}
         <SheetContent side="top">
           <HamburgerMenuNav className="flex flex-col items-center sm:gap-4 gap-2">
             <HamburgerMenuItem>
@@ -54,7 +54,7 @@ export const HamburgerMenuPage = () => {
               </>
             ) : (
               <HamburgerMenuItem>
-                <HamburgerMenuLink href="/auth/login">Login</HamburgerMenuLink>
+                <HamburgerMenuLink href="/login">Login</HamburgerMenuLink>
               </HamburgerMenuItem>
             )}
           </HamburgerMenuNav>
@@ -68,7 +68,7 @@ export const HamburgerMenuPage = () => {
 
 const style = {
   nav: `  pl-0 mb-0`,
-  navbar: ` md:hidden block font-light  py-1 sm:py-2 px-4 z-50`,
+  navbar: ` md:hidden block font-light  py-1 sm:py-2 px-2 z-50`,
   collapse: `transition-height ease-in-out duration-300`,
   toggler: `float-right pt-1.5 text-4xl focus:outline-none focus:shadow`,
   link: `block cursor-pointer sm:text-[16px] py-1.5 px-4  hover:text-gray-400 font-medium `,
