@@ -18,21 +18,42 @@ interface BlogPostReaderProps {
 
 const RichTextReader: React.FC<BlogPostReaderProps> = ({ post }) => {
   return (
-    <div className=" mx-auto p-4">
-      <Card className="w-full max-w-3xl mx-auto bg-white dark:bg-gray-800">
+    <div className=" mx-auto py-4 sm:p-4 border-none">
+      <Card className="w-full max-w-4xl mx-auto bg-inherit border-none">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+          <CardTitle className="text-2xl md:text-3xl font-[Helvetica Neue, Helvetica, Arial, sans-serif]  font-bold text-gray-900 dark:text-gray-100">
             {post.title}
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="dark:prose-invert max-w-none">
+          <div
+            // prose
+            className=" 
+            dark:prose-indigo 
+            prose-p:tracking-wide 
+            prose-li:tracking-wide prose-p:text-base 
+            prose-li:text-sm prose-li:leading-relaxed 
+            prose-p:leading-relaxed
+            dark:prose-invert
+            prose-h5:text-bold
+            prose-h4:text-bold
+            prose-h3:text-bold
+            prose-h2:text-bold
+            prose-h1:text-bold
+            prose-pre:text-sm 
+            prose-pre:my-1
+             prose-p:my-1
+             prose-p:mb-2
+             dark:text-gray-100
+           max-w-none 
+          "
+          >
             <ReactQuill
               value={post.content}
               readOnly={true}
               theme="bubble"
               modules={{ toolbar: false }}
-              className="prose-a:text-blue-600"
+              className="prose-a:text-blue-600 prose-h4:text-xl"
             />
           </div>
         </CardContent>

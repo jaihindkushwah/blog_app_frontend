@@ -42,8 +42,8 @@ export async function POST(req: Request) {
     });
 
     // Save the user to the database
-    console.log(newUser);
-    // await newUser.save();
+    // console.log(newUser);
+    await newUser.save();
 
     // Generate JWT token
 

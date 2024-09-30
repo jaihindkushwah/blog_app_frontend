@@ -4,7 +4,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import axios from "axios";
 import connectToDatabase from "./utils/db";
 import User from "./models/User";
-import { compareEncryption } from "./lib/encryptDecrypt";
+import { compareEncryption, encryption } from "./lib/encryptDecrypt";
 
 // Extend the built-in session types
 declare module "next-auth" {
@@ -89,34 +89,47 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async jwt({ token, account, user, session, profile }) {
-      // if (account) {
-      //   token.token = account.access_token;
-      // }
-      // // console.log("jwt_token", {
-      // //   ...token,
-      // // });
-      // if (account?.provider === "google") {
-      //   const googleToken = account.id_token;
-      //   const response = await axios.post(
-      //     "http://127.0.0.1:8080/api/v1/auth/google",
-      //     {
-      //       googleToken: googleToken,
-      //     }
-      //   );
-      //   const data = await response.data;
-      //   console.log(data);
-      //   const user1 = { token: data.token, ...data.user };
-      //   return {
-      //     ...token,
-      //     ...user1,
-      //   };
-      // }
-      // if (user) {
-      //   return {
-      //     ...token,
-      //     ...user,
-      //   };
-      // }
+      if (account) {
+        token.token = account.access_token;
+      }
+      // console.log("jwt_token", {
+      //   ...token,
+      // });
+      if (account?.provider === "google") {
+        // console.log({ profile });
+        // console.log({ account });
+        await connectToDatabase();
+        let newUser = await User.findOne({ email: profile?.email });
+
+        if (!newUser) {
+          newUser = new User({
+            name: profile?.name,
+            email: profile?.email,
+            password: encryption(
+              (profile?.sub || account?.providerAccountId + name) +
+                process.env.NEXTAUTH_SECRET
+            ),
+            role: "user",
+          });
+
+          await newUser.save();
+        }
+        // console.log({ newUser });
+        user.id = newUser._id as any;
+        user.email = newUser.email as any;
+        user.name = newUser.name as any;
+        return {
+          ...token,
+          ...user,
+          role: newUser.role,
+        };
+      }
+      if (user) {
+        return {
+          ...user,
+          ...token,
+        };
+      }
 
       return token;
     },
@@ -131,8 +144,8 @@ export const authOptions: NextAuthOptions = {
 
     async signIn({ account, profile, user }) {
       //   console.log("signIn", { account, profile, user });
-      console.log(account);
-      console.log({ profile });
+      // console.log(account);
+      // console.log({ profile });
       if (account?.provider === "google") {
         if (!profile?.email) {
           return false;
@@ -158,7 +171,7 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/login",
     newUser: "/create",
-    signOut: "/login/",
+    signOut: "/",
   },
   secret: process.env.NEXTAUTH_SECRET,
 };

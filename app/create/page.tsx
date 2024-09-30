@@ -22,6 +22,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import RichTextReader from "@/components/RichTextReader";
+import axios from "axios";
+import { useSession } from "next-auth/react";
 // import BlogPostReader from "./TextReader";
 // Dynamically import react-quill to avoid SSR issues
 const ReactQuill = dynamic(() => import("react-quill"), {
@@ -83,6 +85,8 @@ const formats = [
 
 interface BlogPost {
   content: string;
+  title: string;
+  description?: string;
 }
 function TextEditorDrawerDialog({
   contents,
@@ -91,47 +95,7 @@ function TextEditorDrawerDialog({
   contents: BlogPost;
 }) {
   const [open, setOpen] = React.useState(false);
-  //   useEffect(() => {
-  //     // Add custom styles for Quill editor in read-only mode
-  //     const style = document.createElement("style");
-  //     style.textContent = `
-  //       .ql-editor {
-  //         padding: 0;
-  //       }
-  //       .ql-editor h1, .ql-editor h2, .ql-editor h3 {
-  //         margin-top: 1em;
-  //         margin-bottom: 0.5em;
-  //       }
-  //       .ql-editor p {
-  //         margin-bottom: 1em;
-  //       }
-  //       .ql-editor ul, .ql-editor ol {
-  //         padding-left: 1.5em;
-  //         margin-bottom: 1em;
-  //       }
-  //       .ql-editor.ql-blank::before {
-  //         color: inherit;
-  //         opacity: 0.6;
-  //       }
-  //       .dark .ql-editor {
-  //         color: #e5e7eb;
-  //       }
-  //       .dark .ql-editor h1, .dark .ql-editor h2, .dark .ql-editor h3 {
-  //         color: #f3f4f6;
-  //       }
-  //       .dark .ql-editor a {
-  //         color: #60a5fa;
-  //       }
-  //       .dark .ql-editor blockquote {
-  //         border-left-color: #4b5563;
-  //       }
-  //     `;
-  //     document.head.appendChild(style);
 
-  //     return () => {
-  //       document.head.removeChild(style);
-  //     };
-  //   }, []);
   return (
     <Dialog modal={false} open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -153,60 +117,89 @@ function TextEditorDrawerDialog({
 }
 
 const BlogWritingPage: React.FC = () => {
-  const [post, setPost] = useState<BlogPost>({ title: "", content: "" });
+  const { data: session } = useSession();
+  const [post, setPost] = useState<BlogPost>({
+    title: "",
+    content: "",
+    description: "",
+  });
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPost((prev) => ({ ...prev, title: e.target.value }));
   };
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPost((prev) => ({ ...prev, description: e.target.value }));
+  };
 
   const handleContentChange = (content: string) => {
-    console.log(content);
+    // console.log(content);
     setPost((prev) => ({ ...prev, content }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Here you would typically send the data to your backend
     // console.log(post);
-    setIsSubmitted(true);
-    // Reset form
-    setPost({ title: "", content: "" });
+    try {
+      const requestData = { ...post, createdBy: session?.user.id };
+      const response = await axios.post("/api/content", requestData);
+      const data = await response.data;
+      console.log(data);
+      setIsSubmitted(true);
+      // Reset form
+      setPost({ title: "", content: "", description: "" });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
-    // Add custom styles for Quill editor
+    // Add custom styles for Quill editor with fixed toolbar
     const style = document.createElement("style");
     style.textContent = `
-      .ql-toolbar.ql-snow {
+      .fixed-toolbar-quill .quill {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        border-radius:10px
+      }
+      .fixed-toolbar-quill .ql-toolbar.ql-snow {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        background-color: white;
         border-top-left-radius: 0.5rem;
         border-top-right-radius: 0.5rem;
       }
-      .ql-container.ql-snow {
+      .fixed-toolbar-quill .ql-container.ql-snow {
+        flex: 1;
+        overflow: auto;
         border-bottom-left-radius: 0.5rem;
         border-bottom-right-radius: 0.5rem;
       }
-      .dark .ql-toolbar.ql-snow,
-      .dark .ql-container.ql-snow {
+      .fixed-toolbar-quill .ql-editor {
+        min-height: 100%;
+      }
+      .dark .fixed-toolbar-quill .ql-toolbar.ql-snow {
+        background-color: #374151;
         border-color: #4b5563;
       }
-      .dark .ql-toolbar.ql-snow {
-        background-color: #374151;
-      }
-      .dark .ql-container.ql-snow {
+      .dark .fixed-toolbar-quill .ql-container.ql-snow {
         background-color: #1f2937;
+        border-color: #4b5563;
         color: #e5e7eb;
       }
-      .dark .ql-editor.ql-blank::before {
+      .dark .fixed-toolbar-quill .ql-editor.ql-blank::before {
         color: #9ca3af;
       }
-      .dark .ql-snow .ql-stroke {
+      .dark .fixed-toolbar-quill .ql-snow .ql-stroke {
         stroke: #e5e7eb;
       }
-      .dark .ql-snow .ql-fill {
+      .dark .fixed-toolbar-quill .ql-snow .ql-fill {
         fill: #e5e7eb;
       }
-      .dark .ql-picker-label {
+      .dark .fixed-toolbar-quill .ql-picker-label {
         color: #e5e7eb;
       }
     `;
@@ -246,12 +239,28 @@ const BlogWritingPage: React.FC = () => {
             </div>
             <div>
               <label
+                htmlFor="description"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              >
+                Description
+              </label>
+              <Input
+                id="description"
+                value={post.description}
+                onChange={handleDescriptionChange}
+                placeholder="Enter your blog description"
+                required
+                className="bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              />
+            </div>
+            <div>
+              <label
                 htmlFor="content"
                 className="block text-sm font-medium text-gray-700 dark:text-gray-300"
               >
                 Content
               </label>
-              <div className="min-h-[50vh] rounded-lg overflow-hidden">
+              <div className="min-h-[40vh]  max-h-[60vh] fixed-toolbar-quill overflow-scroll">
                 <ReactQuill
                   value={post.content}
                   onChange={handleContentChange}
@@ -259,7 +268,7 @@ const BlogWritingPage: React.FC = () => {
                   formats={formats}
                   theme="snow"
                   placeholder="Write your blog post content here"
-                  className=" bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                  className="bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                 />
               </div>
             </div>

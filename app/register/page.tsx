@@ -24,6 +24,7 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import { signIn } from "next-auth/react";
 
 const FormSchema = z
   .object({
@@ -60,18 +61,29 @@ export default function Register() {
 
   async function onSubmit(inputs: z.infer<typeof FormSchema>) {
     const { name, email, password } = inputs;
-    console.log({ ...inputs });
+    // console.log({ ...inputs });
     try {
-      // const response = await axios.post("/api/auth/register", {
-      //   name,
-      //   email,
-      //   password,
-      //   role,
-      // });
-      // const data = await response.data;
-      console.log(inputs);
-    } catch (error) {
-      console.log(error);
+      const response = await axios.post("/api/auth/register", {
+        name,
+        email,
+        password,
+        role,
+      });
+      const data = await response.data;
+      // console.log(inputs);
+      await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+        callbackUrl: "/create",
+      });
+      console.log(data);
+    } catch (error: any) {
+      if (error instanceof Error) {
+        console.log(error);
+      }
+      setError(error.response.data.error);
+      console.log(error.response.data.error);
     }
   }
 
