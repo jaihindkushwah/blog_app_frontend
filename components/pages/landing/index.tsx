@@ -186,7 +186,7 @@ const LandingPage = () => {
       <HeroSection />
       <main className="w-full flex pb-10 flex-col mx-auto flex-grow px-4">
         <h3 className="text-2xl text-center pt-5 font-semibold mb-2 text-indigo-700 dark:text-indigo-300">
-          Trending Technical Posts
+          Trending Posts
         </h3>
         <PopularPosts />
       </main>
