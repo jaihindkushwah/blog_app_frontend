@@ -1,5 +1,7 @@
 import { Footer } from "@/components/footer";
-import { Navbar } from "@/components/Navbar";
+import dynamic from "next/dynamic";
+// import { Navbar } from "@/components/Navbar";
+const Navbar = dynamic(() => import("@/components/Navbar"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
 export default function CreateLayout({
   children,

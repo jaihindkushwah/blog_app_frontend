@@ -1,10 +1,8 @@
 "use client";
-
 import * as React from "react";
 import Link from "next/link";
 
 import { cn } from "@/lib/utils";
-// import { Icons } from "@/components/icons"
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -12,118 +10,19 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-
-const components: { category: string; title: string; href: string }[] = [
-  {
-    category: "Technology",
-    title: "Displays an indicator showing the completion progress of a task",
-    href: "/docs/technology/progress",
-  },
-  {
-    category: "Sports",
-    title: "A popup that displays information related to an element",
-    href: "/docs/sports/tooltip",
-  },
-  {
-    category: "Entertainment",
-    title: "Discover the latest trends in streaming technology",
-    href: "/docs/entertainment/streaming",
-  },
-  {
-    category: "Science",
-    title: "Delve into the advancements in space exploration",
-    href: "/docs/science/space-exploration",
-  },
-  {
-    category: "Health",
-    title: "Understanding the impact of AI in modern healthcare",
-    href: "/docs/health/ai-healthcare",
-  },
-  {
-    category: "Education",
-    title: "How virtual reality is transforming the learning experience",
-    href: "/docs/education/virtual-reality",
-  },
-  {
-    category: "Finance",
-    title: "The role of blockchain technology in global finance",
-    href: "/docs/finance/blockchain",
-  },
-  {
-    category: "Travel",
-    title: "Exploring the future of space tourism and interplanetary travel",
-    href: "/docs/travel/space-tourism",
-  },
-  {
-    category: "Automotive",
-    title: "The rise of electric vehicles and their environmental impact",
-    href: "/docs/automotive/electric-vehicles",
-  },
-  {
-    category: "Fashion",
-    title: "Sustainable fashion trends and eco-friendly clothing",
-    href: "/docs/fashion/sustainable-fashion",
-  },
-  {
-    category: "Gaming",
-    title: "The evolution of cloud gaming and its future potential",
-    href: "/docs/gaming/cloud-gaming",
-  },
-  {
-    category: "Music",
-    title: "How AI-generated music is changing the industry",
-    href: "/docs/music/ai-generated-music",
-  },
-  {
-    category: "Food",
-    title: "Exploring the rise of plant-based diets and alternative proteins",
-    href: "/docs/food/plant-based-diets",
-  },
-  {
-    category: "Architecture",
-    title: "Smart cities and the future of urban living",
-    href: "/docs/architecture/smart-cities",
-  },
-  {
-    category: "Literature",
-    title: "The influence of AI on modern creative writing",
-    href: "/docs/literature/ai-creative-writing",
-  },
-  {
-    category: "History",
-    title: "How digital archives are preserving historical records",
-    href: "/docs/history/digital-archives",
-  },
-  {
-    category: "Photography",
-    title: "The impact of drone photography on modern visual arts",
-    href: "/docs/photography/drone-photography",
-  },
-  {
-    category: "Marketing",
-    title: "The role of social media influencers in digital marketing",
-    href: "/docs/marketing/social-media-influencers",
-  },
-  {
-    category: "Economics",
-    title: "How automation is reshaping labor markets globally",
-    href: "/docs/economics/automation-labor-markets",
-  },
-  {
-    category: "Politics",
-    title: "The use of AI in election campaigns and political analysis",
-    href: "/docs/politics/ai-election-campaigns",
-  },
-  {
-    category: "Psychology",
-    title: "The psychological effects of social media on mental health",
-    href: "/docs/psychology/social-media-mental-health",
-  },
-];
+import { getNavMenu } from "@/lib/getNavMenu";
 
 export default function NavbarMenu() {
+  const [data, setData] = React.useState([]);
+  React.useEffect(() => {
+    const fetchData = async () => {
+      const result = await getNavMenu();
+      setData(result);
+    };
+    fetchData();
+  }, []);
+
   return (
     <NavigationMenu className="font-serif">
       <NavigationMenuList>
@@ -149,47 +48,53 @@ export default function NavbarMenu() {
                   </Link>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="/docs/technology/progress" title="AI in Medicine">
+              <ListItem
+                href="/category/technology/progress"
+                title="AI in Medicine"
+              >
                 Explore how AI is transforming medical diagnostics and treatment
                 planning.
               </ListItem>
-              <ListItem href="/docs/sports/tooltip" title="Sports Analytics">
+              <ListItem
+                href="/category/sports/tooltip"
+                title="Sports Analytics"
+              >
                 Learn how data analytics is revolutionizing sports performance
                 analysis.
               </ListItem>
               <ListItem
-                href="/docs/entertainment/streaming"
+                href="/category/entertainment/streaming"
                 title="Entertainment Streaming"
               >
                 Discover the latest trends in streaming technology.
               </ListItem>
               <ListItem
-                href="/docs/science/space-exploration"
+                href="/category/science/space-exploration"
                 title="Space Exploration"
               >
                 Delve into the advancements in space exploration and
                 interplanetary travel.
               </ListItem>
               <ListItem
-                href="/docs/health/ai-healthcare"
+                href="/category/health/ai-healthcare"
                 title="AI in Healthcare"
               >
                 Understanding the impact of AI in modern healthcare.
               </ListItem>
               <ListItem
-                href="/docs/education/virtual-reality"
+                href="/category/education/virtual-reality"
                 title="Virtual Reality in Education"
               >
                 How virtual reality is transforming the learning experience.
               </ListItem>
               <ListItem
-                href="/docs/finance/blockchain"
+                href="/category/finance/blockchain"
                 title="Blockchain in Finance"
               >
                 The role of blockchain technology in global finance.
               </ListItem>
               <ListItem
-                href="/docs/travel/space-tourism"
+                href="/category/travel/space-tourism"
                 title="Future of Space Tourism"
               >
                 Exploring the future of space tourism and interplanetary travel.
@@ -203,9 +108,9 @@ export default function NavbarMenu() {
           </NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] max-h-[75vh] overflow-scroll gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-              {components.map((component) => (
+              {data?.map((component: any, index: any) => (
                 <ListItem
-                  key={component.title}
+                  key={component.title + index}
                   title={component.category}
                   href={component.href}
                 >
@@ -216,15 +121,22 @@ export default function NavbarMenu() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/about" legacyBehavior passHref>
-            <NavigationMenuLink
-              className={navigationMenuTriggerStyle({
-                className: "bg-inherit",
-              })}
-            >
-              About
-            </NavigationMenuLink>
-          </Link>
+          <NavigationMenuTrigger className="bg-inherit">
+            Job Interview
+          </NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className="grid w-[400px] max-h-[75vh] overflow-scroll gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+              {data?.map((component: any) => (
+                <ListItem
+                  key={component.title}
+                  title={component.category}
+                  href={component.href}
+                >
+                  {component.title}
+                </ListItem>
+              ))}
+            </ul>
+          </NavigationMenuContent>
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>

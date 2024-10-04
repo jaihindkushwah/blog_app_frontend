@@ -8,7 +8,7 @@ import { HamburgerMenuPage } from "./HumbergerMenu";
 import NavbarMenu from "./NavbarMenu";
 import { signOut, useSession } from "next-auth/react";
 
-export const Navbar = () => {
+export default function Navbar() {
   const { theme, setTheme } = useTheme();
   const { data: session } = useSession();
   const ref = useRef<HTMLElement>(null);
@@ -26,6 +26,7 @@ export const Navbar = () => {
     };
     window.addEventListener("scroll", handleScroll);
     return () => {
+      // Unbind the event listener on clean upi
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
@@ -78,4 +79,4 @@ export const Navbar = () => {
       </div>
     </nav>
   );
-};
+}

@@ -2,7 +2,7 @@
 import { ThemeProvider } from "@/components/ThemeProvider";
 import React, { useEffect } from "react";
 // import SocketProvider from "./Socket";
-import PeerProvider from "./Peer";
+// import PeerProvider from "./Peer";
 // import HeaderFooterProvider from "./HeaderFooter";
 import StoreProvider from "@/store/StoreProvider";
 import { Toaster } from "@/components/ui/toaster";
@@ -26,7 +26,10 @@ function AppProvider({ session, children }: Props) {
           <Toaster />
           {/* <HeaderFooterProvider> */}
           {/* <SocketProvider> */}
-          <PeerProvider>{children}</PeerProvider>
+          {/* <PeerProvider> */}
+          {children}
+
+          {/* </PeerProvider> */}
           {/* </SocketProvider> */}
           {/* </HeaderFooterProvider> */}
         </ThemeProvider>

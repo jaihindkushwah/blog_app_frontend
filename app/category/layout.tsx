@@ -1,14 +1,17 @@
 import { Footer } from "@/components/footer";
-import { Navbar } from "@/components/Navbar";
+import dynamic from "next/dynamic";
+// import Navbar from "@/components/Navbar";
+const Navbar = dynamic(() => import("@/components/Navbar"), { ssr: false });
+// import { Navbar } from "@/components/Navbar";
 export default function CreateLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full bg-gray-100   dark:bg-[#001e2b]">
       <Navbar />
-      <div className="mb-20">{children}</div>
+      <div>{children}</div>
       <Footer />
     </div>
   );

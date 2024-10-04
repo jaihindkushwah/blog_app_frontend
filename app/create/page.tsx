@@ -26,6 +26,15 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 // import BlogPostReader from "./TextReader";
 // Dynamically import react-quill to avoid SSR issues
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectGroup,
+  SelectLabel,
+  SelectItem,
+} from "@/components/ui/select";
 const ReactQuill = dynamic(() => import("react-quill"), {
   ssr: false,
   loading: () => <p>Loading editor...</p>,
@@ -42,7 +51,7 @@ interface BlogPost {
 const modules = {
   toolbar: [
     [{ font: [] }],
-    [{ header: [1, 2, 3, 4, false] }],
+    [{ header: [1, 2, false] }],
     ["bold", "italic", "underline", "strike", "blockquote"],
     [
       { list: "ordered" },
@@ -87,6 +96,7 @@ interface BlogPost {
   content: string;
   title: string;
   description?: string;
+  category?: string;
 }
 function TextEditorDrawerDialog({
   contents,
@@ -122,6 +132,7 @@ const BlogWritingPage: React.FC = () => {
     title: "",
     content: "",
     description: "",
+    category: "",
   });
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
@@ -141,6 +152,10 @@ const BlogWritingPage: React.FC = () => {
     e.preventDefault();
     // Here you would typically send the data to your backend
     // console.log(post);
+    if (!post.content) {
+      alert("Content is required");
+      return;
+    }
     try {
       const requestData = { ...post, createdBy: session?.user.id };
       const response = await axios.post("/api/content", requestData);
@@ -148,9 +163,10 @@ const BlogWritingPage: React.FC = () => {
       console.log(data);
       setIsSubmitted(true);
       // Reset form
-      setPost({ title: "", content: "", description: "" });
-    } catch (error) {
+      setPost({ title: "", content: "", description: "", category: "" });
+    } catch (error: any) {
       console.log(error);
+      alert(error.response.data.error);
     }
   };
 
@@ -236,6 +252,51 @@ const BlogWritingPage: React.FC = () => {
                 required
                 className="bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100"
               />
+            </div>
+            <div>
+              <label
+                htmlFor="Category"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              >
+                Category
+              </label>
+              <Select
+                required
+                value={post.category}
+                onValueChange={(value) => {
+                  setPost((prev) => ({ ...prev, category: value }));
+                }}
+              >
+                <SelectTrigger className="w-full mt-1 dark:bg-gray-700 dark:text-gray-100">
+                  <SelectValue placeholder="Please Select a category" />
+                </SelectTrigger>
+                <SelectContent className="dark:bg-gray-700 dark:text-gray-100">
+                  <SelectGroup>
+                    <SelectLabel>Categories</SelectLabel>
+                    <SelectItem value="job">Job Interview</SelectItem>
+                    <SelectItem value="technology">Technology</SelectItem>
+                    <SelectItem value="finance">Finance</SelectItem>
+                    <SelectItem value="health">Health</SelectItem>
+                    <SelectItem value="politics">Politics</SelectItem>
+                    <SelectItem value="sports">Sports</SelectItem>
+                    <SelectItem value="entertainment">Entertainment</SelectItem>
+                    <SelectItem value="culture">Culture</SelectItem>
+                    <SelectItem value="business">Business</SelectItem>
+                    <SelectItem value="science">Science</SelectItem>
+                    <SelectItem value="travel">Travel</SelectItem>
+                    <SelectItem value="food">Food</SelectItem>
+                    <SelectItem value="lifestyle">LifeStyle</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+              {/* <Input
+                id=""
+                value={post.title}
+                onChange={handleTitleChange}
+                required
+                className="bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                placeholder="Enter your blog post title"
+              /> */}
             </div>
             <div>
               <label

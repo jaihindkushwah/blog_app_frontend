@@ -3,10 +3,12 @@ import mongoose, { Document, Model, ObjectId, Schema } from "mongoose";
 
 interface IContent extends Document {
   title: string;
+  titleId: string;
   content: string;
   createBy: ObjectId;
   createdAt: Date;
   updatedAt: Date;
+  category: string;
   description: string;
 }
 
@@ -22,10 +24,20 @@ const ContentSchema: Schema<IContent> = new Schema(
       //   required: true,
       trim: true,
     },
+    titleId: {
+      type: String,
+      required: true,
+      trim: true,
+      unique: true,
+    },
     content: {
       type: String,
       required: true,
       trim: true,
+    },
+    category: {
+      type: String,
+      required: true,
     },
     createBy: {
       type: Schema.Types.ObjectId,

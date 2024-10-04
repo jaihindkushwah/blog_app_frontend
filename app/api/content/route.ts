@@ -1,5 +1,11 @@
 import Content from "@/models/Content";
 import connectToDatabase from "@/utils/db";
+import crypto from "crypto";
+
+function generate8DigitUUID() {
+  return crypto.randomBytes(5).toString("hex").substring(0, 8);
+  // return Crypto.randomBytes(5).toString("hex").substring(0, 5);
+}
 
 export async function GET(request: Request) {
   try {
@@ -38,11 +44,13 @@ export async function GET(request: Request) {
 }
 export async function POST(req: Request) {
   try {
-    const { title, content, description, createdBy } = await req.json();
-    if (!title || !content || !createdBy) {
-      return new Response("All fields are required", {
-        status: 400,
-      });
+    const { title, content, description, createdBy, category } =
+      await req.json();
+    if (!title || !content || !createdBy || !category) {
+      return Response.json(
+        { error: "All fields are required" },
+        { status: 400 }
+      );
     }
 
     await connectToDatabase();
@@ -50,7 +58,9 @@ export async function POST(req: Request) {
     const newContent = new Content({
       title,
       content,
+      titleId: title +"_"+generate8DigitUUID(),
       description,
+      category,
       createBy: createdBy,
     });
     await newContent.save();

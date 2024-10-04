@@ -11,7 +11,7 @@ export async function GET(
     //   const response = await fetch("https://jsonplaceholder.typicode.com/posts");
     //   const data = await response.json();
     await connectToDatabase();
-    const data = await Content.findById(id + "").exec();
+    const data = await Content.findOne({ titleId: id }).exec();
 
     //   console.log(data);
     return Response.json(
