@@ -14,7 +14,7 @@ import {
 import { getNavMenu } from "@/lib/getNavMenu";
 
 export default function NavbarMenu() {
-  const [data, setData] = React.useState([]);
+  const [data, setData] = React.useState({ job_interview: [], category: [] });
   React.useEffect(() => {
     const fetchData = async () => {
       const result = await getNavMenu();
@@ -24,13 +24,13 @@ export default function NavbarMenu() {
   }, []);
 
   return (
-    <NavigationMenu className="font-serif">
+    <NavigationMenu className="font-serif ">
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger className="bg-inherit">
             Trending
           </NavigationMenuTrigger>
-          <NavigationMenuContent>
+          <NavigationMenuContent className="dark:bg-[#1c3751]">
             <ul className="grid max-h-[75vh] overflow-scroll gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
               <li className="row-span-3">
                 <NavigationMenuLink asChild>
@@ -106,9 +106,9 @@ export default function NavbarMenu() {
           <NavigationMenuTrigger className="bg-inherit">
             Categories
           </NavigationMenuTrigger>
-          <NavigationMenuContent>
+          <NavigationMenuContent className="dark:bg-[#1c3751]">
             <ul className="grid w-[400px] max-h-[75vh] overflow-scroll gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-              {data?.map((component: any, index: any) => (
+              {data?.category?.map((component: any, index: any) => (
                 <ListItem
                   key={component.title + index}
                   title={component.category}
@@ -124,9 +124,9 @@ export default function NavbarMenu() {
           <NavigationMenuTrigger className="bg-inherit">
             Job Interview
           </NavigationMenuTrigger>
-          <NavigationMenuContent>
+          <NavigationMenuContent className="dark:bg-[#1c3751]">
             <ul className="grid w-[400px] max-h-[75vh] overflow-scroll gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-              {data?.map((component: any) => (
+              {data?.job_interview?.map((component: any) => (
                 <ListItem
                   key={component.title}
                   title={component.category}

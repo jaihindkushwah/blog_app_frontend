@@ -1,7 +1,22 @@
-import React from "react";
+import axios from "axios";
 
-function Page() {
-  return <div className="h-[50vh] mt-20">page</div>;
+interface Props {
+  params: {
+    category: string;
+  };
+}
+async function Page({ params }: Props) {
+  const { category } = params;
+  let data = null;
+  try {
+    if (category) {
+      data = await axios.get("/api/category/" + category);
+    }
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+  return <div className="h-[50vh] mt-20"></div>;
 }
 
 export default Page;

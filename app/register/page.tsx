@@ -16,7 +16,6 @@ import axios from "axios";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-// import { Switch } from "@/components/ui/switch";
 import {
   Form,
   FormControl,
@@ -61,7 +60,6 @@ export default function Register() {
 
   async function onSubmit(inputs: z.infer<typeof FormSchema>) {
     const { name, email, password } = inputs;
-    // console.log({ ...inputs });
     try {
       const response = await axios.post("/api/auth/register", {
         name,
@@ -70,7 +68,6 @@ export default function Register() {
         role,
       });
       const data = await response.data;
-      // console.log(inputs);
       await signIn("credentials", {
         email,
         password,
@@ -83,7 +80,6 @@ export default function Register() {
         console.log(error);
       }
       setError(error.response.data.error);
-      console.log(error.response.data.error);
     }
   }
 

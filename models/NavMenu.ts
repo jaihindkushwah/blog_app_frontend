@@ -1,4 +1,4 @@
-const dummyMenu: { category: string; title: string; href: string }[] = [
+const CategoryNav: { category: string; title: string; href: string }[] = [
   {
     category: "Technology",
     title: "Displays an indicator showing the completion progress of a task",
@@ -105,8 +105,111 @@ const dummyMenu: { category: string; title: string; href: string }[] = [
     href: "/category/psychology",
   },
 ];
-// const JobInterview: { category: string; title: string; href: string }[] = [];
+export const JobInterview: { category: string; title: string; href: string }[] =
+  [
+    {
+      category: "HTML interview",
+      title: "HTML interview",
+      href: "/interview/html",
+    },
+    {
+      category: "CSS interview",
+      title: "CSS interview",
+      href: "/interview/css",
+    },
+    {
+      category: "JavaScript interview",
+      title: "JavaScript interview",
+      href: "/interview/javascript",
+    },
+    {
+      category: "React interview",
+      title: "Frontend Developer",
+      href: "/interview/react",
+    },
+    {
+      category: "React-Native interview",
+      title: "React-Native for hybrid apps",
+      href: "/interview/react-native",
+    },
+    {
+      category: "Flutter interview",
+      title: "Flutter Developer",
+      href: "/interview/flutter",
+    },
+    {
+      category: "Node-Js interview",
+      title: "Node-Js interview",
+      href: "/interview/node-js",
+    },
+    {
+      category: "Express-Js interview",
+      title: "Express-Js interview",
+      href: "/interview/express-js",
+    },
+    {
+      category: "MongoDB interview",
+      title: "MongoDB interview",
+      href: "/interview/mongodb",
+    },
+    {
+      category: "Angular interview",
+      title: "Angular interview",
+      href: "/interview/angular",
+    },
+    {
+      category: "Vue-Js interview",
+      title: "Vue-Js interview",
+      href: "/interview/angular",
+    },
+    {
+      category: "Next-Js interview",
+      title: "Next-Js interview",
+      href: "/interview/next-js",
+    },
+    {
+      category: "SQL interview",
+      title: "SQL interview",
+      href: "/interview/sql",
+    },
+    {
+      category: "Java interview",
+      title: "Java interview",
+      href: "/interview/java",
+    },
+
+    {
+      category: "Python interview",
+      title: "Python interview",
+      href: "/interview/python",
+    },
+    {
+      category: "C++ interview",
+      title: "C++ interview",
+      href: "/interview/c++",
+    },
+    {
+      category: "C# interview",
+      title: "C# interview",
+      href: "/interview/c#",
+    },
+    {
+      category: "Docker interview",
+      title: "Docker interview",
+      href: "/interview/docker",
+    },
+    {
+      category: "Redis interview",
+      title: "Redis interview",
+      href: "/interview/redis",
+    },
+    {
+      category: "Kafka interview ",
+      title: "Kafka interview",
+      href: "/interview/kafka",
+    },
+  ];
 
 // const NavMenu = Promise.resolve(dummyMenu);
-
-export default dummyMenu;
+const NavMenu = { category: CategoryNav, job_interview: JobInterview };
+export default NavMenu;

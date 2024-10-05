@@ -76,8 +76,10 @@ const RichTextReader: React.FC<BlogPostReaderProps> = ({ post }) => {
             sm:prose-li:text-lg
             prose-p:my-1
             dark:text-gray-100
+            dark:prose-pre:text-gray-100
             max-w-none
             prose-pre:bg-[#c8c9d1]
+            dark:prose-pre:bg-[#01151e]
             prose-pre:text-black
             prose-pre:text-[16px]
             prose-pre:p-[20px]

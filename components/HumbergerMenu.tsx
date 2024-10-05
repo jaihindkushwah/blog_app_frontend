@@ -29,23 +29,26 @@ export const HamburgerMenuPage = () => {
               <HamburgerMenuLink href="/">Home</HamburgerMenuLink>
             </HamburgerMenuItem>
             <HamburgerMenuItem>
-              <HamburgerMenuLink href="/#about">About</HamburgerMenuLink>
+              <HamburgerMenuLink href="#">Trending</HamburgerMenuLink>
             </HamburgerMenuItem>
             <HamburgerMenuItem>
-              <HamburgerMenuLink href="/#contact">Contact</HamburgerMenuLink>
+              <HamburgerMenuLink href="/#about">Category</HamburgerMenuLink>
             </HamburgerMenuItem>
-            {session?.user.name ? (
+            <HamburgerMenuItem>
+              <HamburgerMenuLink href="/#contact">
+                Job Interview
+              </HamburgerMenuLink>
+            </HamburgerMenuItem>
+
+            {session?.user.id ? (
               <>
-                <HamburgerMenuItem>
-                  <HamburgerMenuLink href="/pages/protected/profile">
-                    Profile
-                  </HamburgerMenuLink>
-                </HamburgerMenuItem>
-                <HamburgerMenuItem>
-                  <HamburgerMenuLink href="/pages/protected/dashboard">
-                    Dashboard
-                  </HamburgerMenuLink>
-                </HamburgerMenuItem>
+                {session?.user.role === "creator" ? (
+                  <HamburgerMenuItem>
+                    <HamburgerMenuLink href="/create">
+                      Profile
+                    </HamburgerMenuLink>
+                  </HamburgerMenuItem>
+                ) : null}
                 <HamburgerMenuItem>
                   <HamburgerMenuLink href="#" onClick={() => signOut()}>
                     Logout
