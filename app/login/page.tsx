@@ -3,22 +3,33 @@ import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useTheme } from "next-themes";
+import { signIn } from "next-auth/react";
 // import { Switch } from "@/components/ui/switch";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const router = useRouter();
-  const { theme, setTheme } = useTheme();
 
   const handleEmailLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (email && password) {
-      console.log("Logging in with:", email, password);
-      router.push("/dashboard");
+      try {
+        signIn("credentials", {
+          email,
+          password,
+          redirect: false,
+          callbackUrl: "/create",
+        })
+          .then((res) => {
+            res;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } catch (error) {
+        setError("Please enter both email and password.");
+      }
     } else {
       setError("Please enter both email and password.");
     }
@@ -27,6 +38,9 @@ export default function Login() {
   const handleGoogleLogin = () => {
     console.log("Logging in with Google");
     // Google login logic here
+    signIn("google", { callbackUrl: "/create", redirect: true }).then((res) => {
+      // router.push("/create");
+    });
   };
 
   return (
@@ -107,6 +121,7 @@ export default function Login() {
               </div>
               <div>
                 <Button
+                  type="button"
                   onClick={handleGoogleLogin}
                   className="w-full bg-white hover:bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 shadow-sm"
                 >

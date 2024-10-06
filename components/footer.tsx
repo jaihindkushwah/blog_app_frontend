@@ -1,16 +1,10 @@
-import {
-  MoonIcon,
-  SunIcon,
-  Facebook,
-  Twitter,
-  Instagram,
-  Rss,
-} from "lucide-react";
+import { Separator } from "@radix-ui/react-separator";
+import { Facebook, Twitter, Instagram, Rss } from "lucide-react";
 import Link from "next/link";
 
 export const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-gray-200 py-8 pt-16">
+    <footer className="dark:bg-gray-800/50 bg-gray-800 text-gray-200 py-8 pt-16">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
@@ -113,6 +107,23 @@ export const Footer = () => {
             <Link href="/terms-of-service" passHref>
               <span className="text-sm hover:underline">Terms of Service</span>
             </Link>
+          </div>
+          <Separator className="my-4 bg-gray-700" />
+          <div>
+            <p className="text-slate-400 text-start text-sm">
+              <span className="font-semibold text-white text-base ">
+                Disclaimer:{" "}
+              </span>
+              The content on this blog is provided for informational purposes
+              only and reflects the opinions of the authors. We do not guarantee
+              the accuracy, reliability, or completeness of any information. Any
+              matching functionality within the site is for user convenience
+              only and should not be considered as professional advice or
+              recommendations. External links provided are not endorsed, and we
+              are not responsible for the content of any linked sites. Use of
+              this site and its features is at your own risk. By using this
+              site, you agree to this disclaimer and the terms of service.
+            </p>
           </div>
         </div>
       </div>

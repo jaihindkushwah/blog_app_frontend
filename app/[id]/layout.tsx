@@ -1,17 +1,15 @@
 import { Footer } from "@/components/footer";
 import dynamic from "next/dynamic";
-// import { Navbar } from "@/components/Navbar";
 const Navbar = dynamic(() => import("@/components/Navbar"), { ssr: false });
-import "react-quill/dist/quill.snow.css";
 export default function CreateLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <div className="w-full h-full">
+    <div className="w-full min-h-screen h-full bg-gray-100   dark:bg-[#001e2b]">
       <Navbar />
-      {children}
+      <div className="min-h-[40vh]">{children}</div>
       <Footer />
     </div>
   );

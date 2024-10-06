@@ -272,7 +272,7 @@ export const RichTextReader: React.FC<IRichTextReader> = ({
   const editor = useEditor(
     {
       extensions: [...RichTextEditorExtensions],
-      content: (type = "html" ? contents : JSON.parse(contents || "{}")),
+      content: type == "html" ? contents : JSON.parse(contents || "{}"),
       editable: false,
       immediatelyRender: false,
       editorProps: { ...EditorDefaultProps },

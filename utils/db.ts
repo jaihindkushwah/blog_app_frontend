@@ -1,27 +1,40 @@
-import mongoose from "mongoose";
-import { ConnectOptions } from "mongoose";
+import mongoose, { ConnectOptions } from "mongoose";
 
-const db_connection_url = process.env.MONGODB_URI || "";
+// Define your MongoDB URI
+const db_connection_url: string = process.env.MONGODB_URI || "";
 
+// Extend the ConnectOptions interface to add required options (though most are already available in the default ConnectOptions interface)
 interface Options extends ConnectOptions {
   useNewUrlParser: boolean;
   useUnifiedTopology: boolean;
   bufferCommands: boolean;
 }
-async function connectToDatabase() {
+
+// Define the function to connect to the database
+async function connectToDatabase(): Promise<void> {
+  if (mongoose.connection.readyState >= 1) {
+    // If already connected, no need to reconnect
+    console.log("Already connected to MongoDB");
+    return;
+  }
+
   const options: Options = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    bufferCommands: false,
+    bufferCommands: false, // Disable buffering, commands should fail when not connected
   };
-  mongoose
-    .connect(db_connection_url, options)
-    .then(() => {
-      console.log("Connected to MongoDB");
-    })
-    .catch((error) => {
-      console.error("MongoDB connection error:", error);
-    });
+
+  try {
+    // Try to connect using the provided options
+    await mongoose.connect(db_connection_url, options);
+    console.log("Connected to MongoDB");
+  } catch (error) {
+    console.error("MongoDB connection error:", error);
+    if (error instanceof Error) {
+      throw new Error(`Failed to connect to MongoDB: ${error.message}`);
+    }
+    throw error;
+  }
 }
 
 export default connectToDatabase;

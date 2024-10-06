@@ -162,7 +162,7 @@ const PopularPosts = () => {
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-8 px-4">
       {posts.map((post, index) => (
         <Link key={index} href={`/blog/${post._id}`}>
-          <Card className="bg-white dark:bg-gray-900 shadow-md dark:shadow-none hover:shadow-xl hover:scale-[1.02] transition-all duration-300 rounded-lg cursor-pointer">
+          <Card className="bg-white dark:bg-slate-900 shadow-md dark:shadow-none hover:shadow-xl hover:scale-[1.02] transition-all duration-300 rounded-lg cursor-pointer">
             <CardHeader>
               <CardTitle className="text-gray-800 dark:text-gray-200">
                 {post.title}
@@ -182,7 +182,7 @@ const PopularPosts = () => {
 
 const LandingPage = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-300">
+    <div className="min-h-screen flex flex-col bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-300">
       <HeroSection />
       <main className="w-full flex pb-10 flex-col mx-auto flex-grow px-4">
         <h3 className="text-2xl text-center pt-5 font-semibold mb-2 text-indigo-700 dark:text-indigo-300">

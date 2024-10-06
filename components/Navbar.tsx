@@ -6,9 +6,11 @@ import { MoonIcon, SunIcon } from "lucide-react";
 import Link from "next/link"; // Import Link from Next.js
 import { HamburgerMenuPage } from "./HumbergerMenu";
 import NavbarMenu from "./NavbarMenu";
+import { signOut, useSession } from "next-auth/react";
 
-export const Navbar = () => {
+export default function Navbar() {
   const { theme, setTheme } = useTheme();
+  const { data: session } = useSession();
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -24,6 +26,7 @@ export const Navbar = () => {
     };
     window.addEventListener("scroll", handleScroll);
     return () => {
+      // Unbind the event listener on clean upi
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
@@ -43,10 +46,27 @@ export const Navbar = () => {
             <NavbarMenu />
           </div>
         </div>
-        <div className="flex items-center space-x-2">
-          <Link href="/login" passHref>
-            <Button variant="ghost">Login</Button>
-          </Link>
+        <div className=" flex items-center space-x-2">
+          {session?.user.id ? (
+            <>
+              {session?.user.role === "creator" ? (
+                <Link className="sm:block hidden" href="/create" passHref>
+                  <Button variant="ghost">Profile</Button>
+                </Link>
+              ) : null}
+              <Button
+                className="sm:block hidden"
+                variant="ghost"
+                onClick={() => signOut()}
+              >
+                Logout
+              </Button>
+            </>
+          ) : (
+            <Link href="/login" passHref>
+              <Button variant="ghost">Login</Button>
+            </Link>
+          )}
           <Button
             variant="ghost"
             size="icon"
@@ -59,4 +79,4 @@ export const Navbar = () => {
       </div>
     </nav>
   );
-};
+}

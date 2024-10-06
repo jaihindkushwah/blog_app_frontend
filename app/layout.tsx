@@ -14,9 +14,19 @@ const fontSans = FontSans({
 });
 
 export const metadata: Metadata = {
-  title: "The Founded any problems...",
+  title: "The Founded where you can find solutions",
   // the founded is a blog site
   description: "The founded is a blog site",
+  icons: {
+    icon: [{ url: "/logo.svg", sizes: "32x32", type: "image/svg+xml" }],
+    apple: [
+      {
+        url: "/icon?id=apple-touch-icon",
+        sizes: "180x180",
+        type: "image/svg+xml",
+      },
+    ],
+  },
 };
 
 export default async function RootLayout({
