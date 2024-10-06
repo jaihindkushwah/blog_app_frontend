@@ -25,6 +25,13 @@ export default withAuth(
     if (isProtectedPage && !req.nextauth.token) {
       return NextResponse.redirect(new URL("/login", req.url));
     }
+    if (isProtectedPage && req.nextauth.token) {
+      if (req.nextauth.token.role === "creator") {
+        return NextResponse.redirect(new URL("/create", req.url));
+      }
+      return NextResponse.redirect(new URL("/", req.url));
+    }
+    // console.log(isAuthPage ? "AuthPage" : "NotAuthPage");
     if (isAuthPage && req.nextauth.token) {
       if (req.nextauth.token.role === "creator") {
         return NextResponse.redirect(new URL("/create", req.url));
@@ -32,6 +39,7 @@ export default withAuth(
         return NextResponse.redirect(new URL("/", req.url));
       }
     }
+    // console.log(req.nextauth.token);
     // For all other cases, continue to the next middleware or to the page
     return NextResponse.next();
   },
