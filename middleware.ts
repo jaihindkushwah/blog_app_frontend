@@ -27,7 +27,7 @@ export default withAuth(
     }
     if (isProtectedPage && req.nextauth.token) {
       if (req.nextauth.token.role === "creator") {
-        return NextResponse.redirect(new URL("/create", req.url));
+        return NextResponse.next();
       }
       return NextResponse.redirect(new URL("/", req.url));
     }
