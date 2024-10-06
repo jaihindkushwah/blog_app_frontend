@@ -1,13 +1,8 @@
-import CodeEditor from "@/components/pages/compiler/CodeEditor";
-import CodeRunSkeleton from "@/components/pages/compiler/ui/CodeRunSkeleton";
-
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import TestCaseTabs from "@/components/pages/compiler/TestCaseTabs";
-import ProblemSection from "@/components/pages/compiler/ProblemSection";
 import { DarkModeToggle } from "@/components/ui/DarkModeToggleButton";
 
 export function Compiler() {
@@ -25,7 +20,7 @@ export function Compiler() {
           minSize={20}
           className="border-r-4 dark:border-r-transparent rounded-lg dark:bg-[#262626] bg-white"
         >
-          <ProblemSection />
+          {/* <ProblemSection /> */}
         </ResizablePanel>
         <ResizableHandle className="bg-inherit hover:bg-blue-500 rounded-lg w-[3px]" />
         <ResizablePanel
@@ -39,7 +34,7 @@ export function Compiler() {
               minSize={10}
               className="mb-1 dark:bg-[#262626] rounded-lg"
             >
-              <CodeEditor />
+              {/* <CodeEditor /> */}
             </ResizablePanel>
             <ResizableHandle className="bg-inherit  hover:bg-blue-500 rounded-lg w-1" />
             {/* <ResizablePanel

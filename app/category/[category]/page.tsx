@@ -63,7 +63,7 @@ async function Page({ params }: Props) {
           ))}
         </div>
         <div className="mt-16 p-5 py-8 sm:p-10  hidden border lg:block">
-          <div className="sticky top-16">
+          <div className="sticky top-16 min-w-[360px]">
             <CalendarGrid />
           </div>
         </div>
