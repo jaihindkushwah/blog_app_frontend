@@ -25,14 +25,13 @@ export default withAuth(
     if (isProtectedPage && !req.nextauth.token) {
       return NextResponse.redirect(new URL("/login", req.url));
     }
-    if (
-      isAuthPage &&
-      req.nextauth.token &&
-      req.nextauth.token.role === "creator"
-    ) {
-      return NextResponse.redirect(new URL("/create", req.url));
+    if (isAuthPage && req.nextauth.token) {
+      if (req.nextauth.token.role === "creator") {
+        return NextResponse.redirect(new URL("/create", req.url));
+      } else {
+        return NextResponse.redirect(new URL("/", req.url));
+      }
     }
-
     // For all other cases, continue to the next middleware or to the page
     return NextResponse.next();
   },
