@@ -110,7 +110,7 @@ export const JobInterview: { category: string; title: string; href: string }[] =
     {
       category: "HTML interview",
       title: "Master HTML: Ace Your Next Web Dev Interview",
-      href: "/interview/Top_50+_HTML_Interview_Questions_and_Answers_for_Technical_Job_Preparation_9fc152ab",
+      href: "/interview/Top_50_HTML_Interview_Questions_and_Answers_for_Technical_Job_Preparation_9fc152ab",
     },
     {
       category: "CSS interview",
@@ -125,7 +125,7 @@ export const JobInterview: { category: string; title: string; href: string }[] =
     {
       category: "React interview",
       title: "React Rockstar: Frontend Mastery Unleashed",
-      href: "/interview/react",
+      href: "/interview/Top_50_React_Interview_Questions:_Functional_Components_&_Modern_Best_Practices_5076125e",
     },
     {
       category: "React-Native interview",

@@ -6,29 +6,29 @@ function Loading() {
       <div className="flex flex-col items-center space-y-3 mt-1">
         <div className="space-y-2 w-full max-w-3xl">
           <div className="w-full flex items-center space-x-4">
-            <Skeleton className="h-14 w-16 rounded-full" />
+            <Skeleton className="h-14 dark:bg-slate-800 bg-gray-300 w-16 rounded-full" />
             <div className="space-y-2 w-full">
-              <Skeleton className="h-3 w-full" />
-              <Skeleton className="h-3 w-full" />
+              <Skeleton className="h-3 dark:bg-slate-800 bg-gray-300 w-full" />
+              <Skeleton className="h-3 dark:bg-slate-800 bg-gray-300 w-full" />
             </div>
           </div>
-          <Skeleton className="h-3 w-full " />
-          <Skeleton className="h-3 w-full " />
-          <Skeleton className="h-3 w-full " />
-          <Skeleton className="h-3 w-[30%] " />
+          <Skeleton className="h-3 dark:bg-slate-800 bg-gray-300 w-full " />
+          <Skeleton className="h-3 dark:bg-slate-800 bg-gray-300 w-full " />
+          <Skeleton className="h-3 dark:bg-slate-800 bg-gray-300 w-full " />
+          <Skeleton className="h-3 dark:bg-slate-800 bg-gray-300 w-[30%] " />
           <div className="w-full">
-            <Skeleton className="h-[240px] mt-4 mb-6 w-full max-w-3xl rounded-xl" />
+            <Skeleton className="h-[240px] mt-4 dark:bg-slate-800 bg-gray-300 mb-6 w-full max-w-3xl rounded-xl" />
           </div>
 
-          <Skeleton className="h-3 w-full " />
-          <Skeleton className="h-3 w-full " />
-          <Skeleton className="h-3 w-full " />
-          <Skeleton className="h-3 w-full " />
-          <Skeleton className="h-3 w-[75%] " />
-          <Skeleton className="h-3 w-full " />
-          <Skeleton className="h-3 w-full " />
-          <Skeleton className="h-3 w-full " />
-          <Skeleton className="h-3 w-[50%] " />
+          <Skeleton className="h-3 dark:bg-slate-800 bg-gray-300 w-full " />
+          <Skeleton className="h-3 dark:bg-slate-800 bg-gray-300 w-full " />
+          <Skeleton className="h-3 dark:bg-slate-800 bg-gray-300 w-full " />
+          <Skeleton className="h-3 dark:bg-slate-800 bg-gray-300 w-full " />
+          <Skeleton className="h-3 dark:bg-slate-800 bg-gray-300 w-[75%] " />
+          <Skeleton className="h-3 dark:bg-slate-800 bg-gray-300 w-full " />
+          <Skeleton className="h-3 dark:bg-slate-800 bg-gray-300 w-full " />
+          <Skeleton className="h-3 dark:bg-slate-800 bg-gray-300 w-full " />
+          <Skeleton className="h-3 dark:bg-slate-800 bg-gray-300 w-[50%] " />
         </div>
       </div>
     </div>
