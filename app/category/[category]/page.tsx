@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, CalendarDays } from "lucide-react";
 import Link from "next/link";
 import CalendarGrid from "@/components/ui/calander-grid";
 
@@ -43,20 +43,37 @@ async function Page({ params }: Props) {
               className="max-h-[450px] flex w-full max-w-[640px]"
             >
               <Link
-                className="flex-1 hover:border-l-4 hover:-ml-1 hover:rounded-l-sm border-l-[#1684f9] dark:border-l-[#074b94] "
+                key={post._id}
+                className="flex-1 transition-transform duration-200 "
                 href={`/${post.titleId}`}
               >
-                <Card className="bg-inherit border-none hover:shadow-sm dark:bg-gray-800 transition-all text-primary-foreground duration-300 cursor-pointer rounded-none">
-                  <CardHeader className="space-y-0 pb-2">
-                    <CardTitle className="text-gray-800 dark:text-gray-200 ">
-                      {post.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
-                      {post.description}
-                    </p>
-                  </CardContent>
+                <Card className="hover:translate-x-1 bg-white  dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all duration-300 overflow-hidden">
+                  <div className="flex flex-col md:flex-row">
+                    <div className=" p-6">
+                      <CardHeader className="p-0">
+                        <CardTitle className="text-xl sm:text-2xl  font-semibold text-gray-800 dark:text-gray-200 mb-2">
+                          {post.title}
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="p-0">
+                        <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 line-clamp-3">
+                          {post.description}
+                        </p>
+                        <div className="flex items-center mt-4 text-sm text-gray-500 dark:text-gray-400">
+                          <CalendarDays size={16} className="mr-2" />
+                          {/* <span>{format(new Date(post.createdAt), 'MMMM d, yyyy')}</span> */}
+                          <span>{new Date(post.createdAt).toString()}</span>
+                        </div>
+                      </CardContent>
+                    </div>
+                    {/* <div className="md:w-1/3 bg-gray-100 dark:bg-gray-700 flex items-center justify-center p-4">
+                  <img
+                    src={`/api/placeholder/300/200?text=${encodeURIComponent(post.title)}`}
+                    alt={post.title}
+                    className="w-full h-48 object-cover rounded"
+                  />
+                </div> */}
+                  </div>
                 </Card>
               </Link>
             </div>

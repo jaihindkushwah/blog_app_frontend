@@ -43,27 +43,27 @@ export const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Categories</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/categories/technology" passHref>
+                <Link href="/category/technology" passHref>
                   <span className="text-sm hover:underline">Technology</span>
                 </Link>
               </li>
               <li>
-                <Link href="/categories/education" passHref>
+                <Link href="/category/education" passHref>
                   <span className="text-sm hover:underline">Education</span>
                 </Link>
               </li>
               <li>
-                <Link href="/categories/lifestyle" passHref>
+                <Link href="/category/lifestyle" passHref>
                   <span className="text-sm hover:underline">Lifestyle</span>
                 </Link>
               </li>
               <li>
-                <Link href="/categories/travel" passHref>
+                <Link href="/category/travel" passHref>
                   <span className="text-sm hover:underline">Travel</span>
                 </Link>
               </li>
               <li>
-                <Link href="/categories/food" passHref>
+                <Link href="/category/food" passHref>
                   <span className="text-sm hover:underline">Food</span>
                 </Link>
               </li>

@@ -49,7 +49,9 @@ export default withAuth(
         const isAuthPage =
           req.nextUrl.pathname.startsWith("/login") ||
           req.nextUrl.pathname.startsWith("/register");
-        const isProtectedPage = req.nextUrl.pathname.startsWith("/create");
+        const isProtectedPage =
+          req.nextUrl.pathname.startsWith("/create") ||
+          req.nextUrl.pathname.startsWith("/dashboard");
 
         // Allow access to auth pages if not authenticated
         if (isAuthPage) return true;
@@ -66,5 +68,11 @@ export default withAuth(
 
 export const config = {
   // matcher: ["/auth/:path*", "/pages/protected/:path*"],
-  matcher: ["/login", "/create", "/register", "/api/:path*"],
+  matcher: [
+    "/login",
+    "/create",
+    "/register",
+    "/api/:path*",
+    "/dashboard/:path*",
+  ],
 };

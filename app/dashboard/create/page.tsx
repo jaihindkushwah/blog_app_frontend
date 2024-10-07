@@ -273,7 +273,7 @@ const BlogWritingPage: React.FC = () => {
                 <SelectContent className="dark:bg-gray-700 dark:text-gray-100">
                   <SelectGroup>
                     <SelectLabel>Categories</SelectLabel>
-                    <SelectItem value="interview">Job Interview</SelectItem>
+                    <SelectItem value="job">Job Interview</SelectItem>
                     <SelectItem value="technology">Technology</SelectItem>
                     <SelectItem value="finance">Finance</SelectItem>
                     <SelectItem value="health">Health</SelectItem>
