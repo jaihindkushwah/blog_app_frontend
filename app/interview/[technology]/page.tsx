@@ -9,6 +9,14 @@ interface Props {
     technology: string;
   };
 }
+
+export async function generateMetadata({ params }: Props) {
+  const post = await getContentById(params.technology.toString());
+  return {
+    title: post ? post.title : "Blog Post",
+    description: post ? post.description : "Read this blog post",
+  };
+}
 // Async function to fetch the post data on the server
 const BlogPostPage = async ({ params }: Props) => {
   const { technology } = params;

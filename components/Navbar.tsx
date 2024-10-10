@@ -51,12 +51,15 @@ export default function Navbar() {
             <>
               {session?.user.role === "creator" ? (
                 <Link className="sm:block hidden" href="/create" passHref>
-                  <Button variant="ghost">Profile</Button>
+                  <Button variant="ghost" title="Profile">
+                    Profile
+                  </Button>
                 </Link>
               ) : null}
               <Button
                 className="sm:block hidden"
                 variant="ghost"
+                title="Logout"
                 onClick={() => signOut()}
               >
                 Logout
@@ -64,12 +67,15 @@ export default function Navbar() {
             </>
           ) : (
             <Link href="/login" passHref>
-              <Button variant="ghost">Login</Button>
+              <Button title="Login" variant="ghost">
+                Login
+              </Button>
             </Link>
           )}
           <Button
             variant="ghost"
             size="icon"
+            title="Toggle Theme"
             onClick={() => setTheme(theme === "light" ? "dark" : "light")}
           >
             {theme === "light" ? <MoonIcon /> : <SunIcon />}

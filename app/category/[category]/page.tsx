@@ -16,6 +16,15 @@ interface Props {
     category: string;
   };
 }
+
+export async function generateMetadata({ params }: Props) {
+  const post = await await getAllContentCategory(params.category);
+  return {
+    title: post ? post.title : "Blog Post",
+    description: post ? post.description : "Read this blog post",
+  };
+}
+
 async function Page({ params }: Props) {
   const { category } = params;
   let data = null;
