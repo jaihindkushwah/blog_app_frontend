@@ -14,6 +14,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error("Failed to fetch content:", error);
     // Optionally, you can return a default sitemap or an empty array
   }
+  function escapeXml(str: string) {
+    return str
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/'/g, "&apos;")
+      .replace(/"/g, "&quot;");
+  }
 
   const pages: MetadataRoute.Sitemap = [
     {
@@ -50,7 +58,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   const dynamicPages: MetadataRoute.Sitemap = posts.map((post: any) => ({
-    url: `${baseUrl}/${post.titleId}`,
+    url: `${baseUrl}/${escapeXml(post.titleId)}`,
     lastModified: new Date(post.updatedAt),
     changeFrequency: "daily",
     alternates: {
