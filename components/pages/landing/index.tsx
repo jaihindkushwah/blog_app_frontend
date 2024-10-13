@@ -1,5 +1,3 @@
-// "use client";
-// import Reactfrom "react";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";

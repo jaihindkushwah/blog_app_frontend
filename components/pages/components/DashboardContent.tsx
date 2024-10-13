@@ -1,129 +1,52 @@
-"use client";
-import { useState, useEffect, useRef } from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import React from "react";
-import { IconChevronRight } from "@tabler/icons-react";
-import { CardLink } from "./CardLink";
-import { DashboardCardData } from "./data/data";
+// "use client";
+// import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Menu } from "lucide-react";
 
-interface ItemCardProps {
-  animation?: boolean;
-  title?: string;
-  description?: string;
-  sub_link?: { title: string; link: string }[];
+import CalendarGrid from "@/components/ui/calander-grid";
+import NavItems from "./NavItems";
+
+interface Props {
+  children?: React.ReactNode;
 }
-const useIntersectionObserver = (options: any) => {
-  const [isIntersecting, setIsIntersecting] = useState(false);
-  const [hasIntersected, setHasIntersected] = useState(false);
-  const ref = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && !hasIntersected) {
-        setIsIntersecting(true);
-        setHasIntersected(true);
-        observer.unobserve(entry.target);
-      }
-    }, options);
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
-        // clean up ref.current
-        ref.current = null;
-      }
-    };
-  }, [options, hasIntersected]);
-
-  return [ref, isIntersecting];
-};
-
-// Custom hook for focus effect
-
-const ItemCard = ({ description, title, sub_link }: ItemCardProps) => {
-  const [ref, isVisible] = useIntersectionObserver({
-    threshold: 0.1, // Trigger when at least 10% of the element is visible
-  });
-
+export default function DashboardPage({ children }: Props) {
   return (
-    <Card className="overflow-x-hidden w-full sm:w-[360px] dark:bg-[#011531] border border-neutral-200 bg-blend-darken dark:border-slate-700">
-      <div
-        ref={ref as any}
-        tabIndex={0} // Make the card focusable
-        className={`w-full transform transition-all duration-500 ease-in-out  ${
-          isVisible ? "translate-x-0 opacity-100" : " translate-x-40 opacity-0"
-        }`}
-      >
-        <CardHeader>
-          <CardTitle className="text-lg font-medium">{title}</CardTitle>
-        </CardHeader>
-        <CardContent>
-          {sub_link ? (
-            <CardDescription>
-              {sub_link.map((item, index) => (
-                <CardLink
-                  title={item.title}
-                  link={item.link}
-                  icon={<IconChevronRight />}
-                  key={index + "card link"}
-                  childClassName="text-base"
-                />
-              ))}
-            </CardDescription>
-          ) : null}
-        </CardContent>
-      </div>
-    </Card>
-  );
-};
+    <div className="flex h-full ">
+      {/* Sidebar for desktop */}
+      <aside className="hidden  md:flex flex-col w-[200px]  p-4 shadow-lg">
+        <nav className="space-y-2 sticky top-16">
+          <NavItems />
+        </nav>
+      </aside>
 
-function DashboardContent() {
-  return (
-    <div className="flex flex-col">
-      <div className="flex flex-col gap-2">
-        <span>
-          <h2 className="text-xl font-medium"> Current Events</h2>
-        </span>
-        <div className="flex flex-wrap gap-3">
-          {DashboardCardData.map((_, index) => (
-            <ItemCard {..._} key={index} />
-          ))}
+      {/* Main content */}
+      <main className="flex-1 p-4 overflow-auto">
+        <div className="md:hidden mb-4">
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="outline" size="icon">
+                <Menu className="h-4 w-4" />
+                <span className="sr-only">Toggle navigation menu</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="w-[280px] sm:w-[300px]">
+              <nav className="flex flex-col space-y-2 mt-4">
+                <NavItems />
+              </nav>
+            </SheetContent>
+          </Sheet>
         </div>
-      </div>
-      <div>
-        <hr className="my-3 h-2" />
-      </div>
-      <div className="flex flex-col gap-2">
-        <h2 className="text-xl font-medium"> Upcoming Events</h2>
-        <div className="flex flex-wrap gap-3">
-          {DashboardCardData.map((_, index) => (
-            <ItemCard {..._} key={index + "33"} />
-          ))}
+        <div className="grid grid-cols-5 ">
+          <div className="lg:col-span-3 col-span-5">{children}</div>
+          <div className="col-span-2 h-full lg:flex flex-col hidden ">
+            <CalendarGrid
+              className="sticky top-16 "
+              daysOfWeek={["S", "M", "T", "W", "T", "F", "S"]}
+            />
+          </div>
         </div>
-      </div>
-      <div>
-        <hr className="my-3 h-2" />
-      </div>
-      <div className="flex flex-col gap-2">
-        <h2 className="text-xl font-medium"> Recent Purchase</h2>
-        <div className="flex flex-wrap gap-3">
-          {DashboardCardData.map((_, index) => (
-            <ItemCard {..._} key={index + "330"} />
-          ))}
-        </div>
-      </div>
+      </main>
     </div>
   );
 }
-
-export default DashboardContent;

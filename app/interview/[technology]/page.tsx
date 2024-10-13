@@ -3,6 +3,7 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import RichTextReader from "@/components/RichTextReader";
 import { getContentById } from "@/lib/content";
+import { Metadata } from "next";
 
 interface Props {
   params: {
@@ -10,13 +11,44 @@ interface Props {
   };
 }
 
-export async function generateMetadata({ params }: Props) {
-  const post = await getContentById(params.technology.toString());
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { technology } = params;
+  let post = null;
+
+  try {
+    const { data } = await getContentById(technology.toString());
+    post = data;
+  } catch (err) {
+    // Handle error
+  }
+
+  if (!post) {
+    return {
+      title: "Post Not Found",
+    };
+  }
+
   return {
-    title: post ? post.title : "Blog Post",
-    description: post ? post.description : "Read this blog post",
+    title: post.title,
+    description: post.description,
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      type: "article",
+      publishedTime: post.createdAt,
+      authors: [post?.author || ""],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.description,
+    },
+    alternates: {
+      canonical: `https://thefounded.in/${post.titleId}`,
+    },
   };
 }
+
 // Async function to fetch the post data on the server
 const BlogPostPage = async ({ params }: Props) => {
   const { technology } = params;

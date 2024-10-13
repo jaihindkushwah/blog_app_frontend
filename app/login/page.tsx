@@ -22,7 +22,11 @@ export default function Login() {
           callbackUrl: "/create",
         })
           .then((res) => {
-            res;
+            if (res?.error) {
+              setError(res.error);
+            } else {
+              setError("");
+            }
           })
           .catch((err) => {
             console.log(err);

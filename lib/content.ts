@@ -2,10 +2,27 @@ import axios from "axios";
 
 const baseUrl = process.env.NEXTAUTH_URL;
 
-export async function getContentById(id: string) {
+interface IContent {
+  title: string;
+  titleId: string;
+  content: string;
+  createBy: string;
+  createdAt: string;
+  updatedAt: string;
+  category: string;
+  description: string;
+  author?: string;
+}
+export async function getContentById(
+  id: string,
+  init?: RequestInit
+): Promise<{ data: IContent }> {
   const url = baseUrl ? baseUrl : "";
-  const response = await axios.get(url + `/api/content/${id}`);
-  return response.data;
+  const res = await fetch(url + `/api/content/${id}`, { ...init });
+  const data = await res.json();
+  // const response = await axios.get(url + `/api/content/${id}`);
+  // console.log(data);
+  return data;
 }
 
 export async function getAllContent() {

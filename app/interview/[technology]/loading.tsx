@@ -19,7 +19,6 @@ function Loading() {
           <div className="w-full">
             <Skeleton className="h-[240px] mt-4 dark:bg-slate-800 bg-gray-300 mb-6 w-full max-w-3xl rounded-xl" />
           </div>
-
           <Skeleton className="h-3 dark:bg-slate-800 bg-gray-300 w-full " />
           <Skeleton className="h-3 dark:bg-slate-800 bg-gray-300 w-full " />
           <Skeleton className="h-3 dark:bg-slate-800 bg-gray-300 w-full " />

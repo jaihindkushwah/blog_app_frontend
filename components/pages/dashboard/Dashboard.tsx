@@ -1,11 +1,12 @@
 import DashboardContent from "../components/DashboardContent";
-interface Props {
-  searchParams: {
-    route: string;
-  };
-}
+import Overview from "../components/Overview";
+// interface Props {
+//   searchParams: {
+//     route: string;
+//   };
+// }
 
-async function Dashboard(props: Props) {
-  return <DashboardContent />;
+async function Dashboard() {
+  return <Overview />;
 }
 export default Dashboard;

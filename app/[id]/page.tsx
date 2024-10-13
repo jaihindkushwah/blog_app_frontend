@@ -3,6 +3,7 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import RichTextReader from "@/components/RichTextReader";
 import { getContentById } from "@/lib/content";
+import type { Metadata } from "next";
 
 interface Props {
   params: {
@@ -10,7 +11,45 @@ interface Props {
     id: string;
   };
 }
-// Async function to fetch the post data on the server
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = params;
+  let post = null;
+
+  try {
+    const { data } = await getContentById(id.toString());
+    post = data;
+  } catch (err) {
+    // Handle error
+  }
+
+  if (!post) {
+    return {
+      title: "Post Not Found",
+    };
+  }
+
+  return {
+    title: post.title,
+    description: post.description,
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      type: "article",
+      publishedTime: post.createdAt,
+      authors: [post?.author || ""],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.description,
+    },
+    alternates: {
+      canonical: `https://thefounded.in/${post.titleId}`,
+    },
+  };
+}
+
 const BlogPostPage = async ({ params }: Props) => {
   const { category, id } = params;
   let post = null;
@@ -26,7 +65,7 @@ const BlogPostPage = async ({ params }: Props) => {
 
   if (post) {
     return (
-      <div className="min-h-[90vh]   text-foreground">
+      <div className="min-h-[90vh] text-foreground">
         <main className="w-full mx-auto px-2 sm:px-4 py-8 pt-16">
           <RichTextReader post={post} />
         </main>
