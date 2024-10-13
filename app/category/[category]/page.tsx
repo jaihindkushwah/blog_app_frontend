@@ -10,19 +10,69 @@ import {
 import { ArrowLeft, CalendarDays } from "lucide-react";
 import Link from "next/link";
 import CalendarGrid from "@/components/ui/calander-grid";
+import { Metadata } from "next";
 
 interface Props {
   params: {
     category: string;
   };
 }
+
+// export async function generateMetadata({ params }: Props) {
+//   const post = await await getAllContentCategory(params.category);
+//   return {
+//     title: post ? post.title : "Blog Post",
+//     description: post ? post.description : "Read this blog post",
+//   };
+// }
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { category } = params;
+  // let post = null;
+
+  // try {
+  //   const { data } = await getContentById(id.toString());
+  //   post = data;
+  // } catch (err) {
+  //   // Handle error
+  // }
+
+  // if (!post) {
+  //   return {
+  //     title: "Post Not Found",
+  //   };
+  // }
+  const title = `The Founded.in - You can read all ${category} blogs here`;
+  return {
+    title: title,
+    description: "Read this blog post",
+    openGraph: {
+      title: title,
+      description: "Read this blog post",
+      type: "article",
+      // publishedTime: post.createdAt,
+      // authors: [post.author],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: title,
+      description: "Read this blog post",
+    },
+    alternates: {
+      canonical: `https://thefounded.in/category/${category}`,
+    },
+  };
+}
+
 async function Page({ params }: Props) {
   const { category } = params;
   let data = null;
   let error = null;
   try {
     if (category) {
-      data = await getAllContentCategory(category);
+      data = await getAllContentCategory(
+        { category },
+        { next: { revalidate: 60 } }
+      );
       // console.log(data);
       if (data.length === 0) {
         error = "No data found";

@@ -72,22 +72,26 @@ export const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
             <div className="flex space-x-4">
-              <Link href="https://facebook.com" passHref>
+              <Link href="https://facebook.com" passHref aria-label="Facebook">
                 <span className="text-gray-400 hover:text-white">
                   <Facebook size={20} />
                 </span>
               </Link>
-              <Link href="https://twitter.com" passHref>
+              <Link href="https://twitter.com" passHref aria-label="Twitter">
                 <span className="text-gray-400 hover:text-white">
                   <Twitter size={20} />
                 </span>
               </Link>
-              <Link href="https://instagram.com" passHref>
+              <Link
+                href="https://instagram.com"
+                passHref
+                aria-label="Instagram"
+              >
                 <span className="text-gray-400 hover:text-white">
                   <Instagram size={20} />
                 </span>
               </Link>
-              <Link href="/rss-feed" passHref>
+              <Link href="/rss-feed" passHref aria-label="RSS Feed">
                 <span className="text-gray-400 hover:text-white">
                   <Rss size={20} />
                 </span>

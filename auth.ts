@@ -60,6 +60,7 @@ export const authOptions: NextAuthOptions = {
           }
           const isPasswordCorrect = compareEncryption(password, user.password);
           if (!isPasswordCorrect) {
+            console.log("Password is incorrect!");
             throw new Error("Password is incorrect!");
           }
           const newUser = {
@@ -77,7 +78,9 @@ export const authOptions: NextAuthOptions = {
           // return { token: data.token, user: newUser } as any;
           return { user: newUser } as any;
         } catch (error: any) {
-          throw new Error(error.response.data.message);
+          const err = error?.response?.data?.message || error.message;
+          throw new Error(err);
+          // throw new Error(error.response.data.message);
         }
       },
     }),
@@ -109,7 +112,7 @@ export const authOptions: NextAuthOptions = {
               (profile?.sub || account?.providerAccountId + name) +
                 process.env.NEXTAUTH_SECRET
             ),
-            role: "user",
+            role: "creator",
           });
 
           await newUser.save();

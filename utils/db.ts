@@ -18,15 +18,15 @@ async function connectToDatabase(): Promise<void> {
     return;
   }
 
-  const options: Options = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    bufferCommands: false, // Disable buffering, commands should fail when not connected
-  };
+  // const options: Options = {
+  //   useNewUrlParser: true,
+  //   useUnifiedTopology: true,
+  //   bufferCommands: false, // Disable buffering, commands should fail when not connected
+  // };
 
   try {
     // Try to connect using the provided options
-    await mongoose.connect(db_connection_url, options);
+    await mongoose.connect(db_connection_url);
     console.log("Connected to MongoDB");
   } catch (error) {
     console.error("MongoDB connection error:", error);

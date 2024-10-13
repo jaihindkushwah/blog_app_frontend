@@ -1,4 +1,3 @@
-// import LoadingShimmer from "@/components/LoadingShimmer";
 import { Skeleton } from "@/components/ui/skeleton";
 function Loading() {
   return (
