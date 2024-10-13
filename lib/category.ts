@@ -34,8 +34,3 @@ export async function getAllContentCategory(
   // console.log(data);
   return data?.data || [];
 }
-
-export async function getAllContent() {
-  const response = await axios.get(baseUrl + "/api/content");
-  return response.data;
-}
