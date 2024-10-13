@@ -58,7 +58,10 @@ export async function POST(req: Request) {
     const newContent = new Content({
       title,
       content,
-      titleId: (title + "").replaceAll(" ", "_") + "_" + generate8DigitUUID(),
+      titleId:
+        (title + "").replaceAll(" ", "_").replaceAll(":", "-") +
+        "_" +
+        generate8DigitUUID(),
       description,
       category,
       createBy: createdBy,

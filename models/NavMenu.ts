@@ -115,17 +115,17 @@ export const JobInterview: { category: string; title: string; href: string }[] =
     {
       category: "CSS interview",
       title: "CSS Wizardry: Styling Your Way to Interview Success",
-      href: "/interview/CSS_Interview_Prep:_50_Must-Know_Questions_with_Detailed_Explanations_bbe040cf",
+      href: "/interview/CSS_Interview_Prep-_50_Must-Know_Questions_with_Detailed_Explanations_bbe040cf",
     },
     {
       category: "JavaScript interview",
       title: "JavaScript Ninja: Conquer Your Coding Interview",
-      href: "/interview/Top_50_JavaScript_Interview_Questions_and_Answers:_Essential_Guide_for_Developers_0f215e03",
+      href: "/interview/Top_50_JavaScript_Interview_Questions_and_Answers-_Essential_Guide_for_Developers_0f215e03",
     },
     {
       category: "React interview",
       title: "React Rockstar: Frontend Mastery Unleashed",
-      href: "/interview/Top_50_React_Interview_Questions:_Functional_Components_&_Modern_Best_Practices_5076125e",
+      href: "/interview/Top_50_React_Interview_Questions-_Functional_Components_&_Modern_Best_Practices_5076125e",
     },
     {
       category: "React-Native interview",
