@@ -25,7 +25,12 @@ export async function getContentById(
   return data;
 }
 
-export async function getAllContent() {
-  const response = await axios.get(baseUrl + "/api/content");
-  return response.data;
+export async function getAllContent(
+  init?: RequestInit
+): Promise<{ data: IContent[] }> {
+  const url = baseUrl ? baseUrl : "";
+  const res = await fetch(url + `/api/content`, { ...init });
+  const data = await res.json();
+  // console.log(data);
+  return data;
 }

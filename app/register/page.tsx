@@ -197,15 +197,24 @@ export default function Register() {
                   <Select
                     defaultValue="user"
                     onValueChange={(value) => setRole(value)}
+                    name="role"
                   >
-                    <SelectTrigger className="w-full mt-1 dark:bg-gray-700 dark:text-gray-100">
+                    <SelectTrigger
+                      title="Select a role"
+                      name="select role"
+                      className="w-full mt-1 dark:bg-gray-700 dark:text-gray-100"
+                    >
                       <SelectValue placeholder="Select a role" />
                     </SelectTrigger>
                     <SelectContent className="dark:bg-gray-700 dark:text-gray-100">
                       <SelectGroup>
                         <SelectLabel>Roles</SelectLabel>
-                        <SelectItem value="user">User</SelectItem>
-                        <SelectItem value="creator">Creator</SelectItem>
+                        <SelectItem title="User" value="user">
+                          User
+                        </SelectItem>
+                        <SelectItem title="Creator" value="creator">
+                          Creator
+                        </SelectItem>
                       </SelectGroup>
                     </SelectContent>
                   </Select>

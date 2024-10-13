@@ -14,10 +14,10 @@ const fontSans = FontSans({
 });
 
 export const metadata: Metadata = {
-  title: "The Founded - Explore Solutions, Share Ideas",
+  title: "The Founded.In - Explore Solutions, Share Ideas",
   // the founded is a blog site
   description:
-    "he Founded is a dynamic blog platform where innovative minds connect. Explore insightful articles, share your thoughts, and find the solutions you’ve been looking for",
+    "The Founded.In is a dynamic blog platform where innovative minds connect. Explore insightful articles, share your thoughts, and find the solutions you’ve been looking for",
   icons: {
     icon: [{ url: "/logo.svg", sizes: "32x32", type: "image/svg+xml" }],
     apple: [
