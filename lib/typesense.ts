@@ -3,12 +3,12 @@ import typesense from "typesense";
 const typesenseClient = new typesense.Client({
   nodes: [
     {
-      host: process.env.NEXT_PUBLIC_TYPESENSE_HOST || "localhost",
-      port: parseInt(process.env.NEXT_PUBLIC_TYPESENSE_PORT || "8108"),
+      host: process.env.TYPESENSE_HOST || "localhost",
+      port: parseInt(process.env.TYPESENSE_PORT || "8108"),
       protocol: "http",
     },
   ],
-  apiKey: process.env.NEXT_PUBLIC_TYPESENSE_API_KEY || "JaihindKushwaha",
+  apiKey: process.env.TYPESENSE_API_KEY || "JaihindKushwaha",
 });
 
 export interface BookResult {
