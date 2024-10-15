@@ -14,10 +14,13 @@ const typesenseClient = new typesense.Client({
 export interface BookResult {
   id: string;
   title: string;
-  authors: string[];
+  // authors: string[];
+  description: string;
+  createdAt: string;
+  titleId: string;
 }
 
-export async function searchBooks(
+export async function searchContents(
   query: string
 ): Promise<BookResult[] | undefined> {
   if (!query) return [];
@@ -32,18 +35,19 @@ export async function searchBooks(
 
   try {
     const searchResult = await typesenseClient
-      .collections("books")
+      .collections("contents")
       .documents()
       .search(searchParameters);
 
     return searchResult?.hits?.map((hit: any) => ({
       title: hit.document.title,
-      authors: hit.document.authors,
-      publication_year: hit.document.publication_year,
+      description: hit.document.description,
+      createdAt: hit.document.created,
       id: hit.document.id,
-      average_rating: hit.document.average_rating,
-      image_url: hit.document.image_url,
-      ratings_count: hit.document.ratings_count,
+      titleId: hit.document.titleId,
+      // average_rating: hit.document.average_rating,
+      // image_url: hit.document.image_url,
+      // ratings_count: hit.document.ratings_count,
     }));
 
     //   return formattedResults;

@@ -42,7 +42,7 @@ export default function DashboardPage({ children }: Props) {
           <div className="col-span-2 h-full lg:flex flex-col hidden ">
             <CalendarGrid
               className="sticky top-16 "
-              daysOfWeek={["S", "M", "T", "W", "T", "F", "S"]}
+              daysOfWeek={["M", "T", "W", "T", "F", "S", "S"]}
             />
           </div>
         </div>

@@ -1,6 +1,6 @@
-const baseUrl = process.env.NEXTAUTH_URL;
+// const baseUrl = process.env.NEXTAUTH_URL;
 export async function getNavMenu() {
-  console.log("getNavMenu", baseUrl);
+  // console.log("getNavMenu", baseUrl);
   const options: RequestInit = {
     method: "GET",
     headers: {

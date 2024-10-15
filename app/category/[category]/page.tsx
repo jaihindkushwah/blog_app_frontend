@@ -18,30 +18,10 @@ interface Props {
   };
 }
 
-// export async function generateMetadata({ params }: Props) {
-//   const post = await await getAllContentCategory(params.category);
-//   return {
-//     title: post ? post.title : "Blog Post",
-//     description: post ? post.description : "Read this blog post",
-//   };
-// }
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { category } = params;
-  // let post = null;
 
-  // try {
-  //   const { data } = await getContentById(id.toString());
-  //   post = data;
-  // } catch (err) {
-  //   // Handle error
-  // }
-
-  // if (!post) {
-  //   return {
-  //     title: "Post Not Found",
-  //   };
-  // }
-  const title = `The Founded.in - You can read all ${category} blogs here`;
+  const title = `The Founded.in - You can read all ${category} blogs here | TheFounded.in`;
   return {
     title: title,
     description: "Read this blog post",
@@ -51,6 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: "article",
       // publishedTime: post.createdAt,
       // authors: [post.author],
+      url: `https://thefounded.in/category/${category}`,
     },
     twitter: {
       card: "summary_large_image",
@@ -59,6 +40,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     alternates: {
       canonical: `https://thefounded.in/category/${category}`,
+    },
+    robots: {
+      index: true,
+      follow: true,
     },
   };
 }
