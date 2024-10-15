@@ -33,11 +33,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: post.title,
     description: post.description,
     openGraph: {
-      title: post.title,
+      title: post.title + "| TheFounded.in",
       description: post.description,
       type: "article",
       publishedTime: post.createdAt,
       authors: [post?.author || ""],
+      url: `https://thefounded.in/${post.titleId}`,
+      siteName: "The Founded.In",
     },
     twitter: {
       card: "summary_large_image",
@@ -47,14 +49,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     alternates: {
       canonical: `https://thefounded.in/${post.titleId}`,
     },
+    robots: {
+      index: true,
+      follow: true,
+    },
   };
 }
 
 const BlogPostPage = async ({ params }: Props) => {
-  const { category, id } = params;
+  const { id } = params;
   let post = null;
   let error = null;
-  console.log(category, id.toString());
+  // console.log(category, id.toString());
 
   try {
     const { data } = await getContentById(id.toString());

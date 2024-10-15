@@ -14,7 +14,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Search Results for {query}</h1>
+      <h1 className="text-2xl font-bold mb-4">Search Results for -: {query}</h1>
       <ul className="space-y-2">
         {books?.map((book) => (
           <li key={book.id} className="border p-2">
