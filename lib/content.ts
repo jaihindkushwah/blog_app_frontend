@@ -54,3 +54,16 @@ export async function getAllContentByUser(
   const data = await res.json();
   return data;
 }
+
+export async function deleteContentById(
+  id: string,
+  init?: RequestInit
+): Promise<{ data: IContent }> {
+  const url = baseUrl ? baseUrl : "";
+  const res = await fetch(url + `/api/protect/user/${id}`, {
+    method: "DELETE",
+    ...init,
+  });
+  const data = await res.json();
+  return data;
+}
