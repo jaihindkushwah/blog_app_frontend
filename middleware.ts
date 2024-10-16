@@ -1,15 +1,14 @@
 import { withAuth } from "next-auth/middleware";
-// import { notFound } from "next/navigation";
 import { NextResponse } from "next/server";
 
 export default withAuth(
   function middleware(req) {
     // Check if the path is for api/:path*
     // Redirect authenticated users away from auth pages
-    const isApiPath = req.nextUrl.pathname.startsWith("/api/");
+    const isApiPath = req.nextUrl.pathname.startsWith("/api/protect");
     // console.log(req.nextauth.token);
     // console.log(  req.json());
-    if (isApiPath && !req.nextauth.token && req.method !== "GET") {
+    if (isApiPath && !req.nextauth.token) {
       return new Response("Unauthorized", { status: 404 });
     }
 
@@ -39,8 +38,6 @@ export default withAuth(
         return NextResponse.redirect(new URL("/", req.url));
       }
     }
-    // console.log(req.nextauth.token);
-    // For all other cases, continue to the next middleware or to the page
     return NextResponse.next();
   },
   {
@@ -67,7 +64,6 @@ export default withAuth(
 );
 
 export const config = {
-  // matcher: ["/auth/:path*", "/pages/protected/:path*"],
   matcher: [
     "/login",
     "/create",

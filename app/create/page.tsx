@@ -157,10 +157,14 @@ const BlogWritingPage: React.FC = () => {
       return;
     }
     try {
-      const requestData = { ...post, createdBy: session?.user.id };
-      const response = await axios.post("/api/content", requestData);
+      const requestData = {
+        ...post,
+        createdBy: session?.user.id,
+        author: session?.user.name,
+      };
+      const response = await axios.post("/api/protect/user", requestData);
       const data = await response.data;
-      console.log(data);
+      // console.log(data);
       setIsSubmitted(true);
       // Reset form
       setPost({ title: "", content: "", description: "", category: "" });

@@ -16,15 +16,6 @@ export async function GET(
   const limit = searchParams.get("limit");
   try {
     await connectToDatabase();
-    // if (!category) {
-    //   return Response.json(
-    //     {
-    //       message: "failed to fetch data!",
-    //       error: "category is required",
-    //     },
-    //     { status: 500 }
-    //   );
-    // }
 
     let data = await Content.find({ category }, "-content -createBy")
       .skip(Number(page) * Number(limit))

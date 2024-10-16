@@ -19,7 +19,7 @@ export default function Login() {
           email,
           password,
           redirect: false,
-          callbackUrl: "/create",
+          callbackUrl: "/dashboard",
         })
           .then((res) => {
             if (res?.error) {
@@ -42,9 +42,11 @@ export default function Login() {
   const handleGoogleLogin = () => {
     console.log("Logging in with Google");
     // Google login logic here
-    signIn("google", { callbackUrl: "/create", redirect: true }).then((res) => {
-      // router.push("/create");
-    });
+    signIn("google", { callbackUrl: "/dashboard", redirect: true }).then(
+      (res) => {
+        // router.push("/create");
+      }
+    );
   };
 
   return (
