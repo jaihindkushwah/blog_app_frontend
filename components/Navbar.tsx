@@ -50,9 +50,9 @@ export default function Navbar() {
           {session?.user.id ? (
             <>
               {session?.user.role === "creator" ? (
-                <Link className="sm:block hidden" href="/create" passHref>
-                  <Button variant="ghost" title="Profile">
-                    Profile
+                <Link className="sm:block hidden" href="/dashboard" passHref>
+                  <Button variant="ghost" title="Dashboard">
+                    Dashboard
                   </Button>
                 </Link>
               ) : null}

@@ -72,7 +72,7 @@ export default function Register() {
         email,
         password,
         redirect: false,
-        callbackUrl: "/create",
+        callbackUrl: "/dashboard",
       });
       console.log(data);
     } catch (error: any) {

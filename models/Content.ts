@@ -1,6 +1,12 @@
 // models/User.ts
 import mongoose, { Document, Model, ObjectId, Schema } from "mongoose";
 
+enum EStatus {
+  published = "published",
+  draft = "draft",
+  deleted = "failed",
+}
+
 interface IContent extends Document {
   title: string;
   titleId: string;
@@ -10,6 +16,9 @@ interface IContent extends Document {
   updatedAt: Date;
   category: string;
   description: string;
+  view_count: number;
+  author: string;
+  status: EStatus;
 }
 
 const ContentSchema: Schema<IContent> = new Schema(
@@ -51,6 +60,19 @@ const ContentSchema: Schema<IContent> = new Schema(
     updatedAt: {
       type: Date,
       default: Date.now,
+    },
+    view_count: {
+      type: Number,
+      default: 0,
+    },
+    author: {
+      type: String,
+      required: true,
+    },
+    status: {
+      type: String,
+      enum: Object.values(EStatus),
+      default: EStatus.published,
     },
   },
   {
