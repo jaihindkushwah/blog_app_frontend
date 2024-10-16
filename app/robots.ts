@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/create", "/admin", "/private", "/dashboard"],
+        disallow: ["/create", "/admin", "/private", "/dashboard", "/api"],
       },
       {
         userAgent: "Googlebot",

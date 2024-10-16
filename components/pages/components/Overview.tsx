@@ -17,7 +17,7 @@ import {
   PaginationNextButton,
   PaginationPreviousButton,
 } from "@/components/ui/pagination";
-import { getAllContentByUser } from "@/lib/content";
+import { deleteContentById, getAllContentByUser } from "@/lib/content";
 import { useSession } from "next-auth/react";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -109,7 +109,6 @@ function Overview() {
       setLoading(true);
       getAllContentByUser(session?.user.id, currentPage + "")
         .then((res) => {
-          // console.log(res);
           setRecentlyPublished(res.data);
         })
         .finally(() => {
@@ -122,9 +121,20 @@ function Overview() {
     // Add your edit logic here
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     if (confirm("Are you sure you want to delete this item?")) {
-      console.log(`Delete item with id: ${id}`);
+      // console.log(`Delete item with id: ${id}`);
+
+      deleteContentById(id)
+        .then((res) => {
+          // console.log(res);
+          if (res.data) {
+            setCurrentPage(1);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
 

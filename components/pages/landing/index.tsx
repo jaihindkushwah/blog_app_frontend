@@ -66,6 +66,7 @@ const LandingPage: React.FC<SearchPageProps> = ({ searchParams }) => {
   return (
     <div className="min-h-screen flex flex-col bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-300">
       <section className="relative h-[100vh] pb-32  bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+        {/* <div className="absolute w-[10%] h-[40%] rounded-r-full bg-blue-200 dark:bg-slate-800 bottom-0 left-2 -rotate-45 "></div> */}
         <div className="text-center px-4">
           <h1 className="text-4xl md:text-6xl font-bold text-gray-800 dark:text-slate-300">
             Welcome to The Founded.in
@@ -81,7 +82,7 @@ const LandingPage: React.FC<SearchPageProps> = ({ searchParams }) => {
              searchParams.q ? "rounded-t-full" : "rounded-full"
            } shadow-sm  
           flex flex-col items-center max-w-md md:max-w-lg mx-auto
-           mt-6 lg:mt-8`}
+           mt-8 lg:mt-10`}
           >
             <SearchInput />
             {searchParams.q ? (
@@ -96,12 +97,12 @@ const LandingPage: React.FC<SearchPageProps> = ({ searchParams }) => {
         </div>
       </section>
 
-      <main className="w-full flex pb-10 flex-col mx-auto flex-grow px-4 dark:border-t-0 border border-t-[#dcdbd9]">
+      {/* <main className="w-full flex pb-10 flex-col mx-auto flex-grow px-4 dark:border-t-0 border border-t-[#dcdbd9]">
         <span className="text-2xl text-center pt-5 font-semibold mb-2 text-indigo-900 dark:text-indigo-100">
           Popular Blogs for Tech Enthusiasts
         </span>
         <PopularPosts posts={posts} />
-      </main>
+      </main> */}
     </div>
   );
 };

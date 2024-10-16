@@ -63,7 +63,9 @@ const BlogPostPage = async ({ params }: Props) => {
   // console.log(category, id.toString());
 
   try {
-    const { data } = await getContentById(id.toString());
+    const { data } = await getContentById(id.toString(), {
+      next: { revalidate: 10 },
+    });
     post = data;
   } catch (err: any) {
     error = err?.response?.data?.message || "Post not found";
