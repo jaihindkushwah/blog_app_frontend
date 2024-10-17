@@ -1,7 +1,7 @@
 import { Footer } from "@/components/footer";
 import DashboardPage from "@/components/pages/components/DashboardContent";
 import dynamic from "next/dynamic";
-const Navbar = dynamic(() => import("@/components/Navbar"), { ssr: false });
+const Navbar = dynamic(() => import("@/components/Navbar"), { ssr: true });
 export default function CreateLayout({
   children,
 }: {
