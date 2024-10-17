@@ -16,7 +16,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   let post = null;
 
   try {
-    const { data } = await getContentById(technology.toString());
+    const { data } = await getContentById(technology.toString(), {
+      next: { revalidate: 20 },
+    });
     post = data;
   } catch (err) {
     // Handle error
@@ -56,7 +58,9 @@ const BlogPostPage = async ({ params }: Props) => {
   let error = null;
 
   try {
-    const { data } = await getContentById(technology.toString());
+    const { data } = await getContentById(technology.toString(), {
+      next: { revalidate: 20 },
+    });
     post = data;
   } catch (err: any) {
     error = err?.response?.data?.message || "Post not found";

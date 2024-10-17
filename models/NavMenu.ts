@@ -110,22 +110,22 @@ export const JobInterview: { category: string; title: string; href: string }[] =
     {
       category: "HTML interview",
       title: "Master HTML: Ace Your Next Web Dev Interview",
-      href: "/interview/Top_50_HTML_Interview_Questions_and_Answers_for_Technical_Job_Preparation_9fc152ab",
+      href: "/interview/50_HTML_Interview_Questions_Every_Front-End_Developer_Should_Know_9d6ec187",
     },
     {
       category: "CSS interview",
       title: "CSS Wizardry: Styling Your Way to Interview Success",
-      href: "/interview/CSS_Interview_Prep-_50_Must-Know_Questions_with_Detailed_Explanations_bbe040cf",
+      href: "/interview/CSS_Interview_Prep-_50_Must-Know_CSS_Questions_with_Detailed_Explanations_f0292cf6",
     },
     {
       category: "JavaScript interview",
       title: "JavaScript Ninja: Conquer Your Coding Interview",
-      href: "/interview/Top_50_JavaScript_Interview_Questions_and_Answers-_Essential_Guide_for_Developers_0f215e03",
+      href: "/interview/Top_50_JavaScript_Interview_Questions_and_Answers-_Essential_Guide_for_Developers_941b8b80",
     },
     {
       category: "React interview",
       title: "React Rockstar: Frontend Mastery Unleashed",
-      href: "/interview/Top_50_React_Interview_Questions-_Functional_Components_&_Modern_Best_Practices_5076125e",
+      href: "/interview/Top_50_React_Interview_Questions-_Functional_Components_&_Modern_Best_Practices_ffd2c013",
     },
     {
       category: "React-Native interview",
