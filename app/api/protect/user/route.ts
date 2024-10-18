@@ -23,8 +23,11 @@ export async function POST(req: Request) {
       title,
       content,
       titleId:
-        (title + "").replaceAll(" ", "_").replaceAll(":", "-") +
-        "_" +
+        (title + "")
+          .replaceAll(" ", "-")
+          .replaceAll(":", "-")
+          .replaceAll("?", "-") +
+        "-" +
         generate8DigitUUID(),
       description,
       category,

@@ -1,11 +1,10 @@
-// "use client";
-// import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 
 import CalendarGrid from "@/components/ui/calander-grid";
 import NavItems from "./NavItems";
+import DashboardUserProfile from "./DashboardUserProfile";
 
 interface Props {
   children?: React.ReactNode;
@@ -39,11 +38,12 @@ export default function DashboardPage({ children }: Props) {
         </div>
         <div className="grid grid-cols-5 ">
           <div className="lg:col-span-3 col-span-5">{children}</div>
-          <div className="col-span-2 h-full lg:flex flex-col hidden ">
-            <CalendarGrid
+          <div className="col-span-2 top-0 relative h-full lg:flex items-center flex-col hidden ">
+            <DashboardUserProfile />
+            {/* <CalendarGrid
               className="sticky top-16 "
               daysOfWeek={["M", "T", "W", "T", "F", "S", "S"]}
-            />
+            /> */}
           </div>
         </div>
       </main>

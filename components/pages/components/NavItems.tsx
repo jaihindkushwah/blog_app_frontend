@@ -12,6 +12,8 @@ import {
   XCircle,
   Clock,
   Settings,
+  SquarePenIcon,
+  FileIcon,
 } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -60,8 +62,20 @@ const NavItems: React.FC = () => (
       )}
       href="/create"
     >
-      <PlusCircle className="mr-2 h-4 w-4" />
-      Create
+      <SquarePenIcon className="mr-2 h-4 w-4" />
+      Write
+    </Link>
+    <Link
+      className={cn(
+        buttonVariants({
+          variant: "ghost",
+        }),
+        "w-full justify-start"
+      )}
+      href="/dashboard/drafts"
+    >
+      <FileIcon className="mr-2 h-4 w-4" />
+      Drafts
     </Link>
 
     <Link
@@ -71,7 +85,7 @@ const NavItems: React.FC = () => (
         }),
         "w-full justify-start"
       )}
-      href="/create"
+      href="#"
     >
       <Settings className="mr-2 h-4 w-4" />
       Settings

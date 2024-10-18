@@ -5,7 +5,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "links.papareact.com",
+        hostname: "icon-library.com",
       },
       {
         protocol: "http",
