@@ -35,8 +35,8 @@ export const HamburgerMenuPage = () => {
               <HamburgerMenuLink href="/#about">Category</HamburgerMenuLink>
             </HamburgerMenuItem>
             <HamburgerMenuItem>
-              <HamburgerMenuLink href="/#contact">
-                Job Interview
+              <HamburgerMenuLink href="/category/technology">
+                Technology
               </HamburgerMenuLink>
             </HamburgerMenuItem>
 

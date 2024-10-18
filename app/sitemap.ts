@@ -60,7 +60,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const dynamicPages: MetadataRoute.Sitemap = posts.map((post: any) => ({
     url: `${baseUrl}/${escapeXml(post.titleId)}`,
     lastModified: new Date(post.updatedAt),
-    changeFrequency: "daily",
+    changeFrequency: "always",
     alternates: {
       languages: {
         en: `${baseUrl}`,

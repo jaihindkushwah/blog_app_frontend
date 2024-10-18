@@ -16,8 +16,6 @@ import {
   CheckCircle2,
   XCircle,
   Clock,
-  ShareIcon,
-  Share2Icon,
   ViewIcon,
 } from "lucide-react";
 import {
@@ -49,11 +47,8 @@ interface PublishedItem {
   _id: string;
 }
 
-const COLORS = ["#4CAF50", "#F44336", "#2196F3"];
-
-function Overview() {
+function Drafts() {
   const [refresh, setRefresh] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [recentlyPublished, setRecentlyPublished] = useState<PublishedItem[]>(
     []
@@ -63,9 +58,9 @@ function Overview() {
   useEffect(() => {
     if (session?.user.id) {
       setLoading(true);
-      getAllContentByUser(session?.user.id, currentPage + "")
+      getAllContentByUser(session?.user.id)
         .then((res) => {
-          setRecentlyPublished(res.data);
+          setRecentlyPublished([res.data[0]]);
         })
         .catch((err) => {
           console.log(err);
@@ -74,7 +69,7 @@ function Overview() {
           setLoading(false);
         });
     }
-  }, [session?.user.id, currentPage, refresh]);
+  }, [session?.user.id, refresh]);
   const handleEdit = (id: string) => {
     console.log(`Edit item with id: ${id}`);
     // Add your edit logic here
@@ -82,98 +77,19 @@ function Overview() {
 
   const handleDelete = async (id: string) => {
     if (confirm("Are you sure you want to delete this item?")) {
-      // console.log(`Delete item with id: ${id}`);
-
-      deleteContentById(id)
-        .then((res) => {
-          // console.log(res);
-          if (res.data) {
-            setCurrentPage(1);
-            setRefresh((prev) => !prev);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      setRefresh((prev) => !prev);
     }
   };
 
-  const paginate = (pageNumber: number) => {
-    if (pageNumber < 1) return;
-    setCurrentPage(pageNumber);
-  };
-
-  // const statusCounts = recentlyPublished.reduce((acc, item) => {
-  //   acc[item.status] = (acc[item.status] || 0) + 1;
-  //   return acc;
-  // }, {} as Record<Status, number>);
-
-  // const chartData = [
-  //   { name: "Published", value: statusCounts.published || 0 },
-  //   { name: "Failed", value: statusCounts.failed || 0 },
-  //   { name: "Pending", value: statusCounts.pending || 0 },
-  // ];
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 pb-14">
       <div className="px-5 py-3 rounded-xl flex from-slate-300 to-slate-400 bg-gradient-to-r dark:from-slate-800 dark:to-slate-600 flex-col gap-2">
-        <span className="text-2xl font-semibold">Overview</span>
+        <span className="text-2xl font-semibold">Drafts</span>
 
         <p className="mb-4">
-          Welcome to your dashboard. Here&apos;s your recent submission&apos;s
+          Welcome to your Drafts. Here&apos;s your recent saved drafts
         </p>
       </div>
-      {/* <Card>
-        <CardHeader>
-          <CardTitle>Overview</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="mb-4">
-            Welcome to your dashboard. Here&apos;s what&apos;s new:
-          </p>
-          <ChartContainer
-            config={{
-              published: {
-                label: "Published",
-                color: "hsl(var(--chart-1))",
-              },
-              failed: {
-                label: "Failed",
-                color: "hsl(var(--chart-2))",
-              },
-              pending: {
-                label: "Pending",
-                color: "hsl(var(--chart-3))",
-              },
-            }}
-            className="h-[300px] w-[300px] sm:w-full min-w-[300px] max-w-3xl"
-          >
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  data={chartData}
-                  dataKey="value"
-                  nameKey="name"
-                  cx="50%"
-                  cy="50%"
-                  outerRadius={80}
-                  fill="#8884d8"
-                  label
-                >
-                  {chartData.map((entry, index) => (
-                    <Cell
-                      key={`cell-${index}`}
-                      fill={COLORS[index % COLORS.length]}
-                    />
-                  ))}
-                </Pie>
-                <Legend />
-                <ChartTooltip content={<ChartTooltipContent />} />
-              </PieChart>
-            </ResponsiveContainer>
-          </ChartContainer>
-        </CardContent>
-      </Card> */}
-
       {loading ? (
         <div className="min-h-[30vh]">
           <div className="flex flex-col gap-2">
@@ -190,29 +106,7 @@ function Overview() {
           </div>
         </div>
       ) : (
-        <div className="w-full">
-          <Pagination>
-            <PaginationContent className="w-full flex justify-end">
-              <PaginationItem className="cursor-pointer">
-                <PaginationPreviousButton
-                  title="Previous"
-                  disabled={currentPage == 1}
-                  onClick={() => paginate(currentPage - 1)}
-                />
-              </PaginationItem>
-
-              <PaginationItem className="cursor-pointer">
-                <PaginationNextButton
-                  disabled={
-                    recentlyPublished?.length == 0 ||
-                    recentlyPublished?.length < 5
-                  }
-                  title="Next"
-                  onClick={() => paginate(currentPage + 1)}
-                />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
+        <div className="w-full ">
           <div className="space-y-4">
             {!recentlyPublished || recentlyPublished.length == 0 ? (
               <div className="flex justify-center items-center">
@@ -258,33 +152,14 @@ function Overview() {
                       <Trash2 className="h-4 w-4" />
                       <span className="sr-only">Delete</span>
                     </Button>
-                    <Link href={`/${item.titleId}`}>
-                      <Button title="View" variant="ghost" size="icon">
-                        <ViewIcon className="h-4 w-4" />
-                      </Button>
-                    </Link>
-
-                    {/* <Share2Icon className="h-4 w-4" /> */}
 
                     <span
                       className="inline-flex items-center"
-                      title={item.status}
+                      title={"Pending"}
                     >
-                      {item.status === "published" && (
-                        <CheckCircle2 className="h-4 w-4 text-green-500" />
-                      )}
-                      {item.status === "failed" && (
-                        <XCircle className="h-4 w-4 text-red-500" />
-                      )}
-                      {item.status === "pending" && (
-                        <Clock className="h-4 w-4 text-blue-500" />
-                      )}
+                      <Clock className="h-4 w-4 text-blue-500" />
                     </span>
                   </div>
-                  <ShareButton
-                    url={`https://thefounded.in/${item.titleId}`}
-                    title={item.title}
-                  />
                 </CardFooter>
               </Card>
             ))}
@@ -295,4 +170,4 @@ function Overview() {
   );
 }
 
-export default Overview;
+export default Drafts;
