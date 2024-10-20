@@ -1,5 +1,11 @@
 import Content from "@/models/Content";
 import connectToDatabase from "@/utils/db";
+import crypto from "crypto";
+
+function generate8DigitUUID() {
+  return crypto.randomBytes(5).toString("hex").substring(0, 8);
+}
+
 export async function GET(
   request: Request,
   {
@@ -64,6 +70,13 @@ export async function PUT(
     const data = await Content.findByIdAndUpdate(id, {
       title,
       content,
+      titleId:
+        (title + "")
+          .replaceAll(" ", "-")
+          .replaceAll(":", "-")
+          .replaceAll("?", "-") +
+        "-" +
+        generate8DigitUUID(),
       description,
       category,
       author,
