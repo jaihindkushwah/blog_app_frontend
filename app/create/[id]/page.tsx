@@ -158,7 +158,7 @@ const BlogWritingPage: React.FC = () => {
         },
         body: JSON.stringify(requestData),
       });
-      const data = await res.json();
+      await res.json();
       // console.log(data);
       setIsSubmitted(true);
       setPost({ title: "", content: "", description: "", category: "" });
