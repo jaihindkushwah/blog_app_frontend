@@ -46,7 +46,7 @@ export async function getAllContentByUser(
   const url = baseUrl ? baseUrl : "";
   const res = await fetch(
     url +
-      `/api/protect/user/${id}${page ? "?page=" + page : ""}${
+      `/api/protect/content/getAll/${id}${page ? "?page=" + page : ""}${
         limit ? "&limit=" + limit : ""
       }`,
     { ...init }
@@ -60,7 +60,7 @@ export async function deleteContentById(
   init?: RequestInit
 ): Promise<{ data: IContent }> {
   const url = baseUrl ? baseUrl : "";
-  const res = await fetch(url + `/api/protect/user/${id}`, {
+  const res = await fetch(url + `/api/protect/content/${id}`, {
     method: "DELETE",
     ...init,
   });

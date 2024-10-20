@@ -4,28 +4,18 @@ import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AlertCircle } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import RichTextReader from "@/components/RichTextReader";
 import axios from "axios";
 import { useSession } from "next-auth/react";
-// import BlogPostReader from "./TextReader";
-// Dynamically import react-quill to avoid SSR issues
 import {
   Select,
   SelectTrigger,
@@ -35,13 +25,11 @@ import {
   SelectLabel,
   SelectItem,
 } from "@/components/ui/select";
+import { useParams, useRouter } from "next/navigation";
 const ReactQuill = dynamic(() => import("react-quill"), {
   ssr: false,
   loading: () => <p>Loading editor...</p>,
 });
-
-// import "react-quill/dist/quill.snow.css";
-// import { RichTextReader } from "@/components/TextEditor";
 
 interface BlogPost {
   title: string;
@@ -97,6 +85,7 @@ interface BlogPost {
   title: string;
   description?: string;
   category?: string;
+  _id?: string;
 }
 function TextEditorDrawerDialog({
   contents,
@@ -127,12 +116,15 @@ function TextEditorDrawerDialog({
 }
 
 const BlogWritingPage: React.FC = () => {
+  const router = useRouter();
   const { data: session } = useSession();
+  let contentId = useParams().id;
   const [post, setPost] = useState<BlogPost>({
     title: "",
     content: "",
     description: "",
     category: "",
+    _id: "",
   });
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
@@ -144,14 +136,11 @@ const BlogWritingPage: React.FC = () => {
   };
 
   const handleContentChange = (content: string) => {
-    // console.log(content);
     setPost((prev) => ({ ...prev, content }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send the data to your backend
-    // console.log(post);
     if (!post.content) {
       alert("Content is required");
       return;
@@ -162,17 +151,39 @@ const BlogWritingPage: React.FC = () => {
         createdBy: session?.user.id,
         author: session?.user.name,
       };
-      const response = await axios.post("/api/protect/content", requestData);
-      const data = await response.data;
+      const res = await fetch(`/api/protect/content/${contentId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData),
+      });
+      await res.json();
       // console.log(data);
       setIsSubmitted(true);
-      // Reset form
       setPost({ title: "", content: "", description: "", category: "" });
+      alert("Content submitted successfully");
+      router.push("/dashboard");
     } catch (error: any) {
       console.log(error);
       alert(error.response.data.error);
     }
   };
+
+  useEffect(() => {
+    const getContent = async () => {
+      try {
+        const response = await axios.get("/api/protect/content/" + contentId);
+        const data = await response.data;
+        // console.log(data);
+        setPost(data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (contentId) getContent();
+    // console.log("contentId ", contentId);
+  }, [contentId]);
 
   useEffect(() => {
     // Add custom styles for Quill editor with fixed toolbar
@@ -232,11 +243,10 @@ const BlogWritingPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 pt-16 p-4">
-      {/* <TextEditorDrawerDialog contents={post.content} /> */}
       <Card className="w-full max-w-4xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-lg">
         <CardHeader>
           <CardTitle className="text-gray-900 dark:text-gray-100">
-            Write a New Blog Post
+            Edit your Blog Post
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -293,14 +303,6 @@ const BlogWritingPage: React.FC = () => {
                   </SelectGroup>
                 </SelectContent>
               </Select>
-              {/* <Input
-                id=""
-                value={post.title}
-                onChange={handleTitleChange}
-                required
-                className="bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100"
-                placeholder="Enter your blog post title"
-              /> */}
             </div>
             <div>
               <label

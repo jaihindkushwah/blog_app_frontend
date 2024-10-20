@@ -75,10 +75,6 @@ function Overview() {
         });
     }
   }, [session?.user.id, currentPage, refresh]);
-  const handleEdit = (id: string) => {
-    console.log(`Edit item with id: ${id}`);
-    // Add your edit logic here
-  };
 
   const handleDelete = async (id: string) => {
     if (confirm("Are you sure you want to delete this item?")) {
@@ -240,15 +236,17 @@ function Overview() {
                 </CardContent>
                 <CardFooter className="flex justify-between items-center flex-wrap-reverse gap-1">
                   <div className="flex sm:gap-2 gap-1 sm:flex-row items-center mt-1">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => handleEdit(item._id)}
-                      title="Edit"
-                    >
-                      <Edit className="h-4 w-4" />
-                      <span className="sr-only">Edit</span>
-                    </Button>
+                    <Link href={`/create/${item._id}`}>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        // onClick={() => handleEdit(item._id)}
+                        title="Edit"
+                      >
+                        <Edit className="h-4 w-4" />
+                        <span className="sr-only">Edit</span>
+                      </Button>
+                    </Link>
                     <Button
                       variant="ghost"
                       size="icon"

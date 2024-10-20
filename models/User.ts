@@ -11,6 +11,7 @@ interface IUser extends Document {
   email: string;
   password: string;
   role: ERoleType;
+  ip_address: string;
 }
 
 const UserSchema: Schema<IUser> = new Schema(
@@ -33,6 +34,9 @@ const UserSchema: Schema<IUser> = new Schema(
       type: String,
       enum: Object.values(ERoleType),
       default: ERoleType.User,
+    },
+    ip_address: {
+      type: String,
     },
   },
   {
