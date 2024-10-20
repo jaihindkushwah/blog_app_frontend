@@ -44,8 +44,8 @@ export const HamburgerMenuPage = () => {
               <>
                 {session?.user.role === "creator" ? (
                   <HamburgerMenuItem>
-                    <HamburgerMenuLink href="/create">
-                      Profile
+                    <HamburgerMenuLink href="/dashboard">
+                      Dashboard
                     </HamburgerMenuLink>
                   </HamburgerMenuItem>
                 ) : null}
