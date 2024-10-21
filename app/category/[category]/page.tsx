@@ -1,23 +1,12 @@
 import { getAllContentCategory } from "@/lib/category";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  ArrowLeft,
-  CalendarDays,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { CalendarDays, ChevronRight, ChevronsRight } from "lucide-react";
 import Link from "next/link";
 import CalendarGrid from "@/components/ui/calander-grid";
 import { Metadata } from "next";
-import { buttonVariants } from "@/components/ui/button";
 import { PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+import AdsCarousel from "@/components/ads-carousel";
+import AnimatedBlogLink from "@/components/AnimatedBlogLink";
 
 interface Props {
   params: {
@@ -34,10 +23,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const title = `The Founded.in - You can read all ${category} blogs here | TheFounded.in`;
   return {
-    title: title,
+    title: title + " | TheFounded.in",
     description: "Read this blog post",
     openGraph: {
-      title: title,
+      title: title + " | TheFounded.in",
       description: "Read this blog post",
       type: "article",
       // publishedTime: post.createdAt,
@@ -110,8 +99,8 @@ async function Page({ params, searchParams }: Props) {
           <div key={post._id} className="max-h-[450px] flex w-full ">
             <Link
               key={post._id}
-              className="flex-1 transition-transform duration-200 "
               href={`/${post.titleId}`}
+              className="flex-1 transition-transform duration-200 "
             >
               <Card className="hover:translate-x-1 bg-white  dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all duration-300 overflow-hidden">
                 <div className="flex flex-col md:flex-row">
@@ -125,20 +114,28 @@ async function Page({ params, searchParams }: Props) {
                       <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 line-clamp-3">
                         {post.description}
                       </p>
-                      <div className="flex items-center mt-4 text-sm text-gray-500 dark:text-gray-400">
-                        <CalendarDays size={16} className="mr-2" />
-                        {/* <span>{format(new Date(post.createdAt), 'MMMM d, yyyy')}</span> */}
-                        <span>{new Date(post.createdAt).toString()}</span>
+                      <div className="flex justify-between items-center mt-4 text-sm text-gray-500 dark:text-gray-400">
+                        <span className="flex gap-1">
+                          <CalendarDays size={16} className="mr-2" />
+                          <span>{new Date(post.createdAt).toString()}</span>
+                        </span>
+                        <button className="text-blue-500 hover:underline">
+                          <div
+                            className="flex gap-1 items-center"
+                            aria-label="Animated waving right-pointing chevrons"
+                          >
+                            Read more
+                            <ChevronsRight
+                              className={`w-7 h-7 text-blue-600 animate-wave-left-to-right`}
+                              style={{
+                                animationDelay: `${0.1}s`,
+                              }}
+                            />
+                          </div>
+                        </button>
                       </div>
                     </CardContent>
                   </div>
-                  {/* <div className="md:w-1/3 bg-gray-100 dark:bg-gray-700 flex items-center justify-center p-4">
-                  <img
-                    src={`/api/placeholder/300/200?text=${encodeURIComponent(post.title)}`}
-                    alt={post.title}
-                    className="w-full h-48 object-cover rounded"
-                  />
-                </div> */}
                 </div>
               </Card>
             </Link>
@@ -146,8 +143,9 @@ async function Page({ params, searchParams }: Props) {
         ))}
       </div>
       <div className="mt-16 p-5 py-8 sm:p-10  hidden border lg:block">
-        <div className="sticky top-16 min-w-[360px]">
-          <CalendarGrid />
+        <div className="sticky top-40 min-w-[360px]">
+          <AdsCarousel />
+          <AnimatedBlogLink />
         </div>
       </div>
     </div>

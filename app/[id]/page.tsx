@@ -73,11 +73,11 @@ const BlogPostPage = async ({ params }: Props) => {
 
   if (post) {
     return (
-      <div className="min-h-[90vh] text-foreground">
-        <main className="w-full mx-auto px-2 sm:px-4 py-8 pt-16">
+      <article className="min-h-[90vh] text-foreground">
+        <div className="w-full mx-auto px-2 sm:px-4 py-8 pt-16">
           <RichTextReader post={post} />
-        </main>
-      </div>
+        </div>
+      </article>
     );
   }
   return (

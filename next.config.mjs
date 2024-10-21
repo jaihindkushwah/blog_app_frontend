@@ -19,6 +19,22 @@ const nextConfig = {
         protocol: "https",
         hostname: "lh3.googleusercontent.com",
       },
+      {
+        protocol: "https",
+        hostname: "static-cse.canva.com",
+      },
+      {
+        protocol: "https",
+        hostname: "content-management-files.canva.com",
+      },
+      {
+        protocol: "https",
+        hostname: "moonsterleather.com",
+      },
+      {
+        protocol: "https",
+        hostname: "encrypted-tbn0.gstatic.com",
+      },
     ],
   },
 };
