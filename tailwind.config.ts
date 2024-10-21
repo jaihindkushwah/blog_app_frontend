@@ -114,6 +114,17 @@ const config = {
             transform: "translate(calc(-50% - 0.5rem))",
           },
         },
+        "wave-left-to-right": {
+          "0%": {
+            transform: "translateX(0)",
+          },
+          "50%": {
+            transform: "translateX(-25%)",
+          },
+          "100%": {
+            transform: "translateX(0)",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -122,6 +133,7 @@ const config = {
         spotlight: "spotlight 2s ease .75s 1 forwards",
         scroll:
           "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
+        "wave-left-to-right": "wave-left-to-right 1s ease-in-out infinite",
       },
       typography: (theme: any) => ({
         DEFAULT: {

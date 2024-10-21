@@ -153,6 +153,11 @@ export const JobInterview: { category: string; title: string; href: string }[] =
       href: "/interview/mongodb",
     },
     {
+      category: "Java interview",
+      title: "Java Jedi: Object-Oriented Interview Mastery",
+      href: "/Comprehensive-Guide--Top-50-Java-Interview-Questions-and-Example-Answers-d51919a3",
+    },
+    {
       category: "Angular interview",
       title: "Angular Ace: Triumph in Your Frontend Showdown",
       href: "/interview/angular",
@@ -171,11 +176,6 @@ export const JobInterview: { category: string; title: string; href: string }[] =
       category: "SQL interview",
       title: "SQL Sorcerer: Database Wisdom Unleashed",
       href: "/interview/sql",
-    },
-    {
-      category: "Java interview",
-      title: "Java Jedi: Object-Oriented Interview Mastery",
-      href: "/interview/java",
     },
     {
       category: "Python interview",
