@@ -14,7 +14,10 @@ const fontSans = FontSans({
 });
 
 export const metadata: Metadata = {
-  title: "The Founded.In - Explore Solutions, Share Ideas",
+  title: {
+    default: "The Founded.In - Explore Solutions, Share Ideas",
+    template: "%s | TheFounded.In",
+  },
   robots: "follow, index",
   keywords: [
     "founded.in",
@@ -108,7 +111,18 @@ export const metadata: Metadata = {
     "TheFounded debugging solutions",
     "founded.in programming tips blog",
   ],
-
+  twitter: {
+    card: "summary_large_image",
+  },
+  // openGraph: {
+  //   images: [
+  //     {
+  //       url: "./opengraph-image.png",
+  //       width: 1200,
+  //       height: 630,
+  //     },
+  //   ],
+  // },
   // the founded is a blog site
   description:
     "The Founded.In is a dynamic blog platform where innovative minds connect. Explore insightful articles, share your thoughts, and find the solutions you’ve been looking for",

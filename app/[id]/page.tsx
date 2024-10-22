@@ -2,7 +2,7 @@ import React from "react";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import RichTextReader from "@/components/RichTextReader";
-import { getContentById } from "@/lib/content";
+import { getAllContent, getContentById } from "@/lib/content";
 import type { Metadata } from "next";
 
 interface Props {
@@ -10,6 +10,12 @@ interface Props {
     category: string;
     id: string;
   };
+}
+
+export async function generateStaticParams() {
+  const { data } = await getAllContent({ next: { revalidate: 10 } });
+
+  return data.map(({ titleId }) => titleId);
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
