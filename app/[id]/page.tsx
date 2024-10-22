@@ -2,7 +2,7 @@ import React from "react";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import RichTextReader from "@/components/RichTextReader";
-import { getAllContent, getContentById } from "@/lib/content";
+import { getContentById } from "@/lib/content";
 import type { Metadata } from "next";
 
 interface Props {
@@ -12,14 +12,14 @@ interface Props {
   };
 }
 
-export async function generateStaticParams() {
-  try {
-    const { data } = await getAllContent();
-    return await data?.map(({ titleId }) => titleId);
-  } catch (error) {
-    return [];
-  }
-}
+// export async function generateStaticParams() {
+//   try {
+//     const { data } = await getAllContent();
+//     return await data?.map(({ titleId }) => titleId);
+//   } catch (error) {
+//     return [];
+//   }
+// }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = params;
@@ -49,19 +49,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       authors: [post?.author || ""],
       url: `https://thefounded.in/${post.titleId}`,
       siteName: "The Founded.In",
-      images: [
-        {
-          url: "https://thefounded.in/opengraph-image.png",
-          width: 800,
-          height: 600,
-          alt: post.title,
-        },
-      ],
+      images: [{ url: "./opengraph-image.png", width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.description,
+      images: [{ url: "./opengraph-image.png", width: 1200, height: 630 }],
     },
     alternates: {
       canonical: `https://thefounded.in/${post.titleId}`,
