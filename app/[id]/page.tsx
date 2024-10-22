@@ -13,9 +13,8 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  const res = await fetch(`/api/content`, { next: { revalidate: 10 } });
-  const data: any = await res.json();
-  return data?.data?.map(({ titleId }: { titleId: string }) => titleId);
+  const { data } = await getAllContent();
+  return await data?.map(({ titleId }) => titleId);
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -69,6 +68,7 @@ const BlogPostPage = async ({ params }: Props) => {
   // console.log(category, id.toString());
 
   try {
+    // return data.map(({ titleId }) => titleId);
     const { data } = await getContentById(id.toString(), {
       next: { revalidate: 10 },
     });
