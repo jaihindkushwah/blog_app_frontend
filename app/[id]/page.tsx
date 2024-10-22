@@ -2,7 +2,7 @@ import React from "react";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import RichTextReader from "@/components/RichTextReader";
-import { getContentById } from "@/lib/content";
+import { getAllContent, getContentById } from "@/lib/content";
 import type { Metadata } from "next";
 
 interface Props {
@@ -10,6 +10,15 @@ interface Props {
     category: string;
     id: string;
   };
+}
+
+export async function generateStaticParams() {
+  try {
+    const { data } = await getAllContent();
+    return await data?.map(({ titleId }) => titleId);
+  } catch (error) {
+    return [];
+  }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -40,6 +49,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       authors: [post?.author || ""],
       url: `https://thefounded.in/${post.titleId}`,
       siteName: "The Founded.In",
+      images: [
+        {
+          url: "https://thefounded.in/opengraph-image.png",
+          width: 800,
+          height: 600,
+          alt: post.title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
@@ -63,6 +80,7 @@ const BlogPostPage = async ({ params }: Props) => {
   // console.log(category, id.toString());
 
   try {
+    // return data.map(({ titleId }) => titleId);
     const { data } = await getContentById(id.toString(), {
       next: { revalidate: 10 },
     });
