@@ -45,6 +45,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       authors: [post?.author || ""],
       url: `https://thefounded.in/${post.titleId}`,
       siteName: "The Founded.In",
+      images: [
+        {
+          url: "https://thefounded.in/opengraph-image.png",
+          width: 800,
+          height: 600,
+          alt: post.title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
