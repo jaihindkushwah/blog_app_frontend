@@ -13,9 +13,9 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  const { data } = await getAllContent({ next: { revalidate: 10 } });
-
-  return data.map(({ titleId }) => titleId);
+  const res = await fetch(`/api/content`, { next: { revalidate: 10 } });
+  const data: any = await res.json();
+  return data.map(({ titleId }: { titleId: string }) => titleId);
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
