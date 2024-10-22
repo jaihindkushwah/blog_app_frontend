@@ -13,8 +13,12 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  const { data } = await getAllContent();
-  return await data?.map(({ titleId }) => titleId);
+  try {
+    const { data } = await getAllContent();
+    return await data?.map(({ titleId }) => titleId);
+  } catch (error) {
+    return [];
+  }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
