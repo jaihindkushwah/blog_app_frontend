@@ -26,6 +26,7 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { useParams, useRouter } from "next/navigation";
+import SpinLoader from "@/components/SpinLoader";
 const ReactQuill = dynamic(() => import("react-quill"), {
   ssr: false,
   loading: () => <p>Loading editor...</p>,
@@ -116,6 +117,7 @@ function TextEditorDrawerDialog({
 }
 
 const BlogWritingPage: React.FC = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { data: session } = useSession();
   let contentId = useParams().id;
@@ -146,6 +148,7 @@ const BlogWritingPage: React.FC = () => {
       return;
     }
     try {
+      setIsLoading(true);
       const requestData = {
         ...post,
         createdBy: session?.user.id,
@@ -167,18 +170,23 @@ const BlogWritingPage: React.FC = () => {
     } catch (error: any) {
       console.log(error);
       alert(error.response.data.error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
     const getContent = async () => {
       try {
+        setIsLoading(true);
         const response = await axios.get("/api/protect/content/" + contentId);
         const data = await response.data;
         // console.log(data);
         setPost(data.data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsLoading(false);
       }
     };
     if (contentId) getContent();
@@ -243,6 +251,7 @@ const BlogWritingPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 pt-16 p-4">
+      {isLoading ? <SpinLoader /> : null}
       <Card className="w-full max-w-4xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-lg">
         <CardHeader>
           <CardTitle className="text-gray-900 dark:text-gray-100">

@@ -35,6 +35,7 @@ import {
   SelectLabel,
   SelectItem,
 } from "@/components/ui/select";
+import SpinLoader from "@/components/SpinLoader";
 const ReactQuill = dynamic(() => import("react-quill"), {
   ssr: false,
   loading: () => <p>Loading editor...</p>,
@@ -127,6 +128,7 @@ function TextEditorDrawerDialog({
 }
 
 const BlogWritingPage: React.FC = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const { data: session } = useSession();
   const [post, setPost] = useState<BlogPost>({
     title: "",
@@ -157,6 +159,7 @@ const BlogWritingPage: React.FC = () => {
       return;
     }
     try {
+      setIsLoading(true);
       const requestData = {
         ...post,
         createdBy: session?.user.id,
@@ -171,6 +174,8 @@ const BlogWritingPage: React.FC = () => {
     } catch (error: any) {
       console.log(error);
       alert(error.response.data.error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -233,6 +238,7 @@ const BlogWritingPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 pt-16 p-4">
       {/* <TextEditorDrawerDialog contents={post.content} /> */}
+      {isLoading ? <SpinLoader /> : null}
       <Card className="w-full max-w-4xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-lg">
         <CardHeader>
           <CardTitle className="text-gray-900 dark:text-gray-100">

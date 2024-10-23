@@ -4,22 +4,14 @@ import Link from "next/link";
 import RichTextReader from "@/components/RichTextReader";
 import { getContentById } from "@/lib/content";
 import type { Metadata } from "next";
+// import { Metadata } from 'next';
 
+// Ensure you have the correct Props type
 interface Props {
   params: {
-    category: string;
     id: string;
   };
 }
-
-// export async function generateStaticParams() {
-//   try {
-//     const { data } = await getAllContent();
-//     return await data?.map(({ titleId }) => titleId);
-//   } catch (error) {
-//     return [];
-//   }
-// }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = params;
@@ -38,32 +30,40 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  // Base URL for your application
+  const baseUrl = "https://thefounded.in";
+
   return {
-    title: post.title + "| TheFounded.in",
-    description: post.description + "| TheFounded.in",
+    title: `${post.title} | TheFounded.in`,
+    description: `${post.description} | TheFounded.in`,
     openGraph: {
-      title: post.title + "| TheFounded.in",
-      description: post.description + " | TheFounded.in",
+      title: `${post.title} | TheFounded.in`,
+      description: `${post.description} | TheFounded.in`,
       type: "article",
       publishedTime: post.createdAt,
       authors: [post?.author || ""],
-      url: `https://thefounded.in/${post.titleId}`,
+      url: `${baseUrl}/${post.titleId}`,
       siteName: "The Founded.In",
-      images: [{ url: "./opengraph-image.png", width: 1200, height: 630 }],
+      images: [
+        { url: `${baseUrl}/opengraph-image.png`, width: 1200, height: 630 },
+      ], // Updated to absolute URL
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.description,
-      images: [{ url: "./opengraph-image.png", width: 1200, height: 630 }],
+      images: [
+        { url: `${baseUrl}/opengraph-image.png`, width: 1200, height: 630 },
+      ], // Updated to absolute URL
     },
     alternates: {
-      canonical: `https://thefounded.in/${post.titleId}`,
+      canonical: `${baseUrl}/${post.titleId}`,
     },
     robots: {
       index: true,
       follow: true,
     },
+    metadataBase: new URL(baseUrl), // Set metadataBase property
   };
 }
 
