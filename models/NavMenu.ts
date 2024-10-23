@@ -24,71 +24,71 @@ const CategoryNav: { category: string; title: string; href: string }[] = [
     title: "Understanding the impact of AI in modern healthcare",
     href: "/category/health",
   },
-  {
-    category: "Education",
-    title: "How virtual reality is transforming the learning experience",
-    href: "/category/education",
-  },
+  // {
+  //   category: "Education",
+  //   title: "How virtual reality is transforming the learning experience",
+  //   href: "/category/education",
+  // },
   {
     category: "Finance",
     title: "The role of blockchain technology in global finance",
     href: "/category/finance",
   },
-  {
-    category: "Travel",
-    title: "Exploring the future of space tourism and interplanetary travel",
-    href: "/category/travel",
-  },
-  {
-    category: "Automotive",
-    title: "The rise of electric vehicles and their environmental impact",
-    href: "/category/automotive",
-  },
-  {
-    category: "Fashion",
-    title: "Sustainable fashion trends and eco-friendly clothing",
-    href: "/category/fashion",
-  },
-  {
-    category: "Gaming",
-    title: "The evolution of cloud gaming and its future potential",
-    href: "/category/gaming",
-  },
-  {
-    category: "Music",
-    title: "How AI-generated music is changing the industry",
-    href: "/category/music",
-  },
+  // {
+  //   category: "Travel",
+  //   title: "Exploring the future of space tourism and interplanetary travel",
+  //   href: "/category/travel",
+  // },
+  // {
+  //   category: "Automotive",
+  //   title: "The rise of electric vehicles and their environmental impact",
+  //   href: "/category/automotive",
+  // },
+  // {
+  //   category: "Fashion",
+  //   title: "Sustainable fashion trends and eco-friendly clothing",
+  //   href: "/category/fashion",
+  // },
+  // {
+  //   category: "Gaming",
+  //   title: "The evolution of cloud gaming and its future potential",
+  //   href: "/category/gaming",
+  // },
+  // {
+  //   category: "Music",
+  //   title: "How AI-generated music is changing the industry",
+  //   href: "/category/music",
+  // },
   {
     category: "Food",
     title: "Exploring the rise of plant-based diets and alternative proteins",
     href: "/category/food",
   },
-  {
-    category: "Architecture",
-    title: "Smart cities and the future of urban living",
-    href: "/category/architecture",
-  },
-  {
-    category: "Literature",
-    title: "The influence of AI on modern creative writing",
-    href: "/category/literature",
-  },
+  // {
+  //   category: "Architecture",
+  //   title: "Smart cities and the future of urban living",
+  //   href: "/category/architecture",
+  // },
+  // {
+  //   category: "Literature",
+  //   title: "The influence of AI on modern creative writing",
+  //   href: "/category/literature",
+  // },
   {
     category: "History",
     title: "How digital archives are preserving historical records",
     href: "/category/history",
   },
-  {
-    category: "Photography",
-    title: "The impact of drone photography on modern visual arts",
-    href: "/category/photography",
-  },
-  {
-    category: "Marketing",
-    title: "The role of social media influencers in digital marketing",
-    href: "/category/marketing",
-  },
+  // {
+  //   category: "Photography",
+  //   title: "The impact of drone photography on modern visual arts",
+  //   href: "/category/photography",
+  // },
+  // {
+  //   category: "Marketing",
+  //   title: "The role of social media influencers in digital marketing",
+  //   href: "/category/marketing",
+  // },
   {
     category: "Economics",
     title: "How automation is reshaping labor markets globally",
@@ -99,11 +99,11 @@ const CategoryNav: { category: string; title: string; href: string }[] = [
     title: "The use of AI in election campaigns and political analysis",
     href: "/category/politics",
   },
-  {
-    category: "Psychology",
-    title: "The psychological effects of social media on mental health",
-    href: "/category/psychology",
-  },
+  // {
+  //   category: "Psychology",
+  //   title: "The psychological effects of social media on mental health",
+  //   href: "/category/psychology",
+  // },
 ];
 export const JobInterview: { category: string; title: string; href: string }[] =
   [
@@ -130,33 +130,40 @@ export const JobInterview: { category: string; title: string; href: string }[] =
     {
       category: "React-Native interview",
       title: "Cross-Platform Pro: Dominate React Native Interviews",
-      href: "/interview/react-native",
+      href: "/interview/Comprehensive_React_Native_FAQ_-_50_Questions_Every_Developer_Should_Know_ddaa4dbf",
     },
-    {
-      category: "Flutter interview",
-      title: "Flutter Genius: Soar Through Your Mobile Dev Interview",
-      href: "/interview/flutter",
-    },
+
     {
       category: "Node-Js interview",
       title: "Node.js Virtuoso: Server-Side Success Awaits",
-      href: "/interview/node-js",
+      href: "/interview/Getting-Started-with-Node.js--20-Key-Questions-Every-Beginner-Should-Know-28495f77",
     },
     {
       category: "Express-Js interview",
       title: "Express.js Expert: Fast-Track Your Backend Interview",
-      href: "/interview/express-js",
+      href: "/interview/Essential-Express.js-Interview-Questions--Top-20-with-Examples-and-In-Depth-Explanations-d4f7e12f",
     },
     {
-      category: "MongoDB interview",
-      title: "MongoDB Maven: NoSQL Knowledge Unlocked",
-      href: "/interview/mongodb",
+      category: "SQL interview",
+      title: "SQL Sorcerer: Database Wisdom Unleashed",
+      href: "/interview/SQL-Interview-Mastery--140+-Questions-Covering-Sharding,-Indexing,-and-Partitioning-Topics-3b0bfd7d",
     },
     {
       category: "Java interview",
       title: "Java Jedi: Object-Oriented Interview Mastery",
       href: "/Comprehensive-Guide--Top-50-Java-Interview-Questions-and-Example-Answers-d51919a3",
     },
+    {
+      category: "MongoDB interview",
+      title: "MongoDB Maven: NoSQL Knowledge Unlocked",
+      href: "/interview/100+-MongoDB-Interview-Questions-with-Examples-and-Explanations-for-Developers-4de32e1b",
+    },
+    {
+      category: "Flutter interview",
+      title: "Flutter Genius: Soar Through Your Mobile Dev Interview",
+      href: "/interview/flutter",
+    },
+
     {
       category: "Angular interview",
       title: "Angular Ace: Triumph in Your Frontend Showdown",
@@ -172,11 +179,7 @@ export const JobInterview: { category: string; title: string; href: string }[] =
       title: "Next.js Ninja: React Framework Expertise Revealed",
       href: "/interview/next-js",
     },
-    {
-      category: "SQL interview",
-      title: "SQL Sorcerer: Database Wisdom Unleashed",
-      href: "/interview/sql",
-    },
+
     {
       category: "Python interview",
       title: "Python Prodigy: Scripting Your Way to Success",
