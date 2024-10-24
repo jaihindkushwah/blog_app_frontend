@@ -2,7 +2,7 @@ import { getAllContent } from "@/lib/content";
 import { MetadataRoute } from "next";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://thefounded.in/";
+  const baseUrl = "https://thefounded.in";
 
   let posts: any = [];
 
