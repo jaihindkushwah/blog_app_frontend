@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import AppMasterProvider from "@/contexts/AppProvider";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth";
+import GoogleTagManager from "@/components/GoogleTagManager";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -149,6 +150,10 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={cn(fontSans.variable)}>
+        <GoogleTagManager gtmId="G-1MQS84Y4SB" />
+
+        {/* GTM No-Script Fallback */}
+
         <AppMasterProvider session={session}>{children}</AppMasterProvider>
       </body>
     </html>
