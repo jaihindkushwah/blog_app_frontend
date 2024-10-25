@@ -14,6 +14,7 @@ const fontSans = FontSans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://thefounded.in"),
   title: {
     default: "The Founded.In - Explore Solutions, Share Ideas",
     template: "%s | TheFounded.In",

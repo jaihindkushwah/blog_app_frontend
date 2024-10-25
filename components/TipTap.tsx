@@ -1,125 +1,99 @@
 "use client";
-import React, { useState } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 
-interface CustomModules {
-  toolbar: {
-    container: string;
-    handlers: {
-      "grid-creator": () => void;
-    };
-  };
-}
+import { useState, useEffect, useCallback, useRef } from "react";
+import { useEditor, EditorContent } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import { Bold, Italic, Underline } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-const CustomToolbar: React.FC = () => (
-  <div id="toolbar">
-    <span className="ql-formats">
-      <select className="ql-font"></select>
-      <select className="ql-header">
-        <option value="1"></option>
-        <option value="2"></option>
-        <option selected></option>
-      </select>
-    </span>
-    <span className="ql-formats">
-      <button className="ql-bold"></button>
-      <button className="ql-italic"></button>
-      <button className="ql-underline"></button>
-      <button className="ql-strike"></button>
-    </span>
-    <span className="ql-formats">
-      <button className="ql-list" value="ordered"></button>
-      <button className="ql-list" value="bullet"></button>
-      <button className="ql-indent" value="-1"></button>
-      <button className="ql-indent" value="+1"></button>
-    </span>
-    <span className="ql-formats">
-      <button className="ql-script" value="sub"></button>
-      <button className="ql-script" value="super"></button>
-    </span>
-    <span className="ql-formats">
-      <button className="ql-direction" value="rtl"></button>
-    </span>
-    <span className="ql-formats">
-      <select className="ql-color"></select>
-      <select className="ql-background"></select>
-    </span>
-    <span className="ql-formats">
-      <button className="ql-link"></button>
-      <button className="ql-image"></button>
-      <button className="ql-code-block"></button>
-    </span>
-    <span className="ql-formats">
-      <button className="ql-clean"></button>
-    </span>
-    <span className="ql-formats">
-      <button className="ql-grid-creator">Grid</button>
-    </span>
-  </div>
-);
-
-const QuillEditor: React.FC = () => {
-  const [content, setContent] = useState<string>("");
-
-  const modules: CustomModules = {
-    toolbar: {
-      container: "#toolbar",
-      handlers: {
-        "grid-creator": function (this: ReactQuill) {
-          const table =
-            '<table style="width:100%; border-collapse: collapse;"><tr><td style="border: 1px solid black; padding: 8px;">Cell 1</td><td style="border: 1px solid black; padding: 8px;">Cell 2</td></tr><tr><td style="border: 1px solid black; padding: 8px;">Cell 3</td><td style="border: 1px solid black; padding: 8px;">Cell 4</td></tr></table><p></p>';
-          const range = this.editor?.getSelection();
-          if (range) {
-            this.editor?.insertText(range.index, "\n");
-            this.editor?.clipboard.dangerouslyPasteHTML(range.index + 1, table);
-            this.editor?.setSelection(range.index + table.length + 1, 0);
-          }
-        },
-      },
-    },
-  };
-
-  const formats: string[] = [
-    "font",
-    "header",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "blockquote",
-    "list",
-    "bullet",
-    "indent",
-    "link",
-    "image",
-    "code-block",
-    "script",
-    "direction",
-    "color",
-    "background",
-    "align",
-    "clean",
-  ];
-
-  const handleChange = (value: string) => {
-    setContent(value);
-  };
+const Toolbar = ({ editor, position }: { editor?: any; position?: any }) => {
+  if (!editor) {
+    return null;
+  }
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
-      <CustomToolbar />
-      <ReactQuill
-        theme="snow"
-        value={content}
-        onChange={handleChange}
-        modules={modules}
-        formats={formats}
-        className="bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 h-64"
-        placeholder="Write your content here"
-      />
+    <div
+      className="flex items-center space-x-2 bg-white border rounded shadow-lg p-2"
+      style={{
+        position: "absolute",
+        top: `-${position.top}px`,
+        left: `${position.left}px`,
+      }}
+    >
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={() => editor.chain().focus().toggleBold().run()}
+        className={editor.isActive("bold") ? "bg-muted" : ""}
+      >
+        <Bold className="h-4 w-4" />
+      </Button>
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={() => editor.chain().focus().toggleItalic().run()}
+        className={editor.isActive("italic") ? "bg-muted" : ""}
+      >
+        <Italic className="h-4 w-4" />
+      </Button>
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={() => editor.chain().focus().toggleUnderline().run()}
+        className={editor.isActive("underline") ? "bg-muted" : ""}
+      >
+        <Underline className="h-4 w-4" />
+      </Button>
     </div>
   );
 };
 
-export default QuillEditor;
+export default function TiptapToolbarEditor() {
+  const [showToolbar, setShowToolbar] = useState(false);
+  const [toolbarPosition, setToolbarPosition] = useState({ top: 0, left: 0 });
+  const editorRef = useRef<any>(null);
+
+  const editor = useEditor({
+    extensions: [StarterKit],
+    content: "<p>Select some text to see the formatting toolbar!</p>",
+    editorProps: {
+      attributes: {
+        class:
+          "prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none",
+      },
+    },
+  });
+
+  const handleSelection = useCallback(() => {
+    const selection = window.getSelection();
+    if (selection && selection.toString().trim().length > 0 && editor) {
+      const range = selection.getRangeAt(0);
+      const rect = range.getBoundingClientRect();
+      const editorRect = editorRef?.current?.getBoundingClientRect();
+
+      setToolbarPosition({
+        top: rect.top - editorRect.top - 40,
+        left: rect.left - editorRect.left,
+      });
+      setShowToolbar(true);
+    } else {
+      setShowToolbar(false);
+    }
+  }, [editor]);
+
+  useEffect(() => {
+    document.addEventListener("selectionchange", handleSelection);
+    return () => {
+      document.removeEventListener("selectionchange", handleSelection);
+    };
+  }, [handleSelection]);
+
+  return (
+    <div className="container mx-auto p-4" ref={editorRef}>
+      <div className="relative border rounded p-4">
+        <EditorContent editor={editor} />
+        {showToolbar && <Toolbar editor={editor} position={toolbarPosition} />}
+      </div>
+    </div>
+  );
+}
