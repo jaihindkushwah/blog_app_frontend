@@ -1,12 +1,13 @@
 import { getAllContentCategory } from "@/lib/category";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { CalendarDays, ChevronRight, ChevronsRight } from "lucide-react";
+import { CalendarDays, ChevronsRight } from "lucide-react";
 import Link from "next/link";
-import CalendarGrid from "@/components/ui/calander-grid";
 import { Metadata } from "next";
 import { PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import AdsCarousel from "@/components/ads-carousel";
 import AnimatedBlogLink from "@/components/AnimatedBlogLink";
+import BlogPostCard from "@/components/SimpleBlogCard";
+// import BlogPostCard from "@/components/BlogCard";
 
 interface Props {
   params: {
@@ -79,7 +80,7 @@ async function Page({ params, searchParams }: Props) {
   // if (data && data.length > 0)
   return (
     <div className="grid grid-cols-2 lg:grid-cols-3 lg:pl-10">
-      <div className="mt-16 p-5 py-8 sm:p-10   col-span-2 flex flex-col gap-2 items-center">
+      <div className="mt-12 p-5 py-8 sm:p-10   col-span-2 flex flex-col gap-2 items-center">
         <div className="flex justify-end gap-1 max-h-[450px]  w-full">
           <PaginationPrevious
             className={`${page == 0 ? "hidden" : "flex"}`}
@@ -96,56 +97,59 @@ async function Page({ params, searchParams }: Props) {
           </div>
         ) : null}
         {data?.map((post: any) => (
-          <div key={post._id} className="max-h-[450px] flex w-full ">
-            <Link
-              key={post._id}
-              href={`/${post.titleId}`}
-              className="flex-1 transition-transform duration-200 "
-            >
-              <Card className="hover:translate-x-1 bg-white  dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all duration-300 overflow-hidden">
-                <div className="flex flex-col md:flex-row">
-                  <div className=" p-6">
-                    <CardHeader className="p-0">
-                      <CardTitle className="text-xl sm:text-2xl  font-semibold text-gray-800 dark:text-gray-200 mb-2">
-                        {post.title}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="p-0">
-                      <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 line-clamp-3">
-                        {post.description}
-                      </p>
-                      <div className="flex justify-between items-center mt-4 text-sm text-gray-500 dark:text-gray-400">
-                        <span className="flex gap-1">
-                          <CalendarDays size={16} className="mr-2" />
-                          <span>{new Date(post.createdAt).toString()}</span>
-                        </span>
-                        <button className="text-blue-500 hover:underline">
-                          <div
-                            className="flex gap-1 items-center"
-                            aria-label="Animated waving right-pointing chevrons"
-                          >
-                            Read more
-                            <ChevronsRight
-                              className={`w-7 h-7 text-blue-600 animate-wave-left-to-right`}
-                              style={{
-                                animationDelay: `${0.1}s`,
-                              }}
-                            />
-                          </div>
-                        </button>
-                      </div>
-                    </CardContent>
-                  </div>
-                </div>
-              </Card>
-            </Link>
-          </div>
+          <BlogPostCard key={post._id} post={post} />
+          // <div key={post._id} className="flex w-full ">
+          //   <Link
+          //     key={post._id}
+          //     href={`/${post.titleId}`}
+          //     className="flex-1 transition-transform duration-200 "
+          //   >
+          //     <Card className="hover:translate-x-1 bg-white  dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all duration-300 overflow-hidden">
+          //       <div className="flex flex-col md:flex-row">
+          //         <div className=" p-6">
+          //           <CardHeader className="p-0">
+          //             <CardTitle className="text-xl sm:text-2xl  font-semibold text-gray-800 dark:text-gray-200 mb-2">
+          //               {post.title}
+          //             </CardTitle>
+          //           </CardHeader>
+          //           <CardContent className="p-0">
+          //             <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 line-clamp-3">
+          //               {post.description}
+          //             </p>
+          //             <div className="flex justify-between items-center mt-4 text-sm text-gray-500 dark:text-gray-400">
+          //               <span className="flex gap-1">
+          //                 <CalendarDays size={16} className="mr-2" />
+          //                 <span>{new Date(post.createdAt).toString()}</span>
+          //               </span>
+          //               <button className="text-blue-500 hover:underline">
+          //                 <div
+          //                   className="flex gap-1 items-center"
+          //                   aria-label="Animated waving right-pointing chevrons"
+          //                 >
+          //                   Read more
+          //                   <ChevronsRight
+          //                     className={`w-7 h-7 text-blue-600 animate-wave-left-to-right`}
+          //                     style={{
+          //                       animationDelay: `${0.1}s`,
+          //                     }}
+          //                   />
+          //                 </div>
+          //               </button>
+          //             </div>
+          //           </CardContent>
+          //         </div>
+          //       </div>
+          //     </Card>
+          //   </Link>
+          // </div>
         ))}
       </div>
       <div className="mt-16 p-5 py-8 sm:p-10  hidden border lg:block">
-        <div className="sticky top-40 min-w-[360px]">
+        <div className="sticky top-10 min-w-[360px]">
           <AdsCarousel />
-          <AnimatedBlogLink />
+          <div className="flex items-center justify-center mt-5 w-full">
+            <AnimatedBlogLink />
+          </div>
         </div>
       </div>
     </div>

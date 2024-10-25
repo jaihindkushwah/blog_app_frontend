@@ -36,14 +36,10 @@ export default function DashboardPage({ children }: Props) {
             </SheetContent>
           </Sheet>
         </div>
-        <div className="grid grid-cols-5 ">
+        <div className="grid grid-cols-5 space-x-4">
           <div className="lg:col-span-3 col-span-5">{children}</div>
           <div className="col-span-2 top-0 relative h-full lg:flex items-center flex-col hidden ">
             <DashboardUserProfile />
-            {/* <CalendarGrid
-              className="sticky top-16 "
-              daysOfWeek={["M", "T", "W", "T", "F", "S", "S"]}
-            /> */}
           </div>
         </div>
       </main>
